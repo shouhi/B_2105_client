@@ -12,7 +12,7 @@
 
 - What will you not do with this PR? (If any. If not, "none" is OK) (If not, specify when you will do it.)
 
-* [] ~~
+* [ ] ~~
 
 ## What you will be able to do (from the user's perspective)
 
