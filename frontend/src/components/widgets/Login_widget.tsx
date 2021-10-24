@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
     } catch (err) {
       alert(err.message);
     }
