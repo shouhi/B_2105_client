@@ -8,6 +8,7 @@ import { GoogleIcon } from "../components/icon/GoogleIcon";
 import firebase from "../utils/firebase";
 import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
 import socialMediaAuth from "../components/auth/SocialMediaAuth";
+import LoginWidget from "../components/widgets/Login_widget";
 
 const Signup: NextPage = () => {
   const auth = firebase.auth();
@@ -81,6 +82,7 @@ const Signup: NextPage = () => {
                 <span>Sign up with Google</span>
               </div>
             </Button>
+            {/* <LoginWidget /> メールアドレス登録する場合に使います */}
             <div className=" pt-6 pb-12">
               <p className="text-sm">
                 既にアカウントをお持ちですか？{" "}
