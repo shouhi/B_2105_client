@@ -4,8 +4,9 @@ import { Button } from "../components/shared/Button";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { GithubIcon } from "../components/icon/GithubIcon";
+import { GoogleIcon } from "../components/icon/GoogleIcon";
 import firebase from "../utils/firebase";
-import { githubProvider } from "../components/auth/AuthMethods";
+import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
 import socialMediaAuth from "../components/auth/SocialMediaAuth";
 
 const Signup: NextPage = () => {
@@ -66,6 +67,18 @@ const Signup: NextPage = () => {
               <div className="flex">
                 <GithubIcon iconColor="white" className="mr-3" />
                 <span>Sign up with Github</span>
+              </div>
+            </Button>
+            <Button
+              variant="solid-white"
+              className="py-4 w-72 sm:w-80 mt-5"
+              onClick={() => {
+                handleOnClick(googleProvider);
+              }}
+            >
+              <div className="flex">
+                <GoogleIcon className="mr-3" />
+                <span>Sign up with Google</span>
               </div>
             </Button>
             <div className=" pt-6 pb-12">

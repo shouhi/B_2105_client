@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from "react";
 import type { NextPage } from "next";
 import { AuthContext } from "../components/auth/AuthProvider";
 import { useRouter } from "next/router";
+import { GoogleIcon } from "../components/icon/GoogleIcon";
 import { Button } from "../components/shared/Button";
 import Link from "next/link";
 import Image from "next/image";
 import { GithubIcon } from "../components/icon/GithubIcon";
-
-import { githubProvider } from "../components/auth/AuthMethods";
+import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
 import socialMediaAuth from "../components/auth/SocialMediaAuth";
 
 const Signin: NextPage = () => {
@@ -40,6 +40,18 @@ const Signin: NextPage = () => {
           <div className="flex">
             <GithubIcon iconColor="white" className="mr-3" />
             <span>Sign in with Github</span>
+          </div>
+        </Button>
+        <Button
+          variant="solid-white"
+          className="py-4 w-72 sm:w-80 mt-5"
+          onClick={() => {
+            handleOnClick(googleProvider);
+          }}
+        >
+          <div className="flex">
+            <GoogleIcon className="mr-3" />
+            <span>Sign in with Google</span>
           </div>
         </Button>
         <div className=" pt-6 pb-12">
