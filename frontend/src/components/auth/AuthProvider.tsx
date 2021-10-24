@@ -31,13 +31,6 @@ const AuthProvider: FC = ({ children }) => {
             avatarUrl: user.photoURL,
             created_at: firebase.firestore.FieldValue.serverTimestamp(),
             email: user.email,
-            id: "",
-            belongs: "",
-            role: "",
-            github: "",
-            twitter: "",
-            instagram: "",
-            discription: "",
           });
         }
       } else {
