@@ -129,6 +129,7 @@ Thanks goes to these wonderful people
 <table>
   <tr>
     <td align="center"><a href="https://twitter.com/shouhi_ide"><img src="https://user-images.githubusercontent.com/63713624/123041698-9f3c9b00-d430-11eb-8faf-e98e27e347db.jpg" width="100px;" alt=""/><br /><sub><b>井手翔陽</b></sub></a><br /><a href="https://github.com/jphacks/B_2105/commits?author=shouhi" title="Documentation">📖</a>
+    <td align="center"><a href="https://twitter.com/pigmon_hayato"><img src="https://avatars.githubusercontent.com/u/74091672?v=4" width="100px;" alt=""/><br /><sub><b>大島颯人</b></sub></a><br /><a href="https://github.com/jphacks/B_2105/commits?author=GitHayato" title="Documentation">📖</a>
 </table>
 
 <!-- markdownlint-restore -->
