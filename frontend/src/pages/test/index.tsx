@@ -1,0 +1,58 @@
+import type { NextPage } from "next";
+import { Layout } from "../../components/shared/Layout";
+import { Button } from "../../components/shared/Button";
+import { EXAMPLE_USER_01 } from "../../models/user";
+import Webcam from "react-webcam";
+import { useRef, useState, useCallback } from "react";
+
+const videoConstraints = {
+  width: 100,
+  height: 50,
+  facingMode: "user",
+};
+
+const Test: NextPage = () => {
+  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
+  const webcamRef = useRef<Webcam>(null);
+
+  return (
+    <Layout
+      left="icon"
+      right={[
+        <Button
+          key="write memo"
+          variant="solid-blue"
+          linkProps={{ href: "/test" }}
+          className="px-4 h-10"
+        >
+          面接練習
+        </Button>,
+      ]}
+    >
+      <div className="p-10 bg-gray-100">
+        <div className="rounded-xl max-w-5xl container mx-auto overflow-hidden shadow-lg bg-gray-50 py-5">
+          {isCaptureEnable || (
+            <button onClick={() => setCaptureEnable(true)}>開始</button>
+          )}
+          {isCaptureEnable && (
+            <>
+              <div>
+                <button onClick={() => setCaptureEnable(false)}>終了</button>
+              </div>
+              <div>
+                <Webcam
+                  audio={false}
+                  width={1000}
+                  ref={webcamRef}
+                  videoConstraints={videoConstraints}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Test;
