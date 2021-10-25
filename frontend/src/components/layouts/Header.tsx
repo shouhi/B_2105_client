@@ -51,7 +51,7 @@ const Left = memo<Pick<HeaderProps, "left">>((props) => {
   }
   if (props.left === "icon") {
     return (
-      <Link href="/">
+      <Link href="/dashboard">
         <Image src="/icon.png" width={100} height={80} />
       </Link>
     );
