@@ -15,7 +15,7 @@ const Signin: NextPage = () => {
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    currentUser && router.push("/");
+    currentUser && router.push("/dashboard");
   }, [currentUser]);
 
   const handleOnClick = async (provider) => {
