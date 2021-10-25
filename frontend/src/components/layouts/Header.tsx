@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fragment, memo, useCallback } from "react";
 import { Button } from "../shared/Button";
+import { auth } from "../../utils/firebase";
 
 //右側は自由に記載できるように
 type Right = "profile" | JSX.Element;
@@ -92,6 +93,7 @@ const Right = memo<Pick<HeaderProps, "right">>((props) => {
           </Fragment>
         );
       })}
+      <Button onClick={() => auth.signOut()}>ログアウト</Button>
     </div>
   );
 });
