@@ -1,19 +1,20 @@
-import type { NextPage } from "next";
-import { Layout } from "../../components/shared/Layout";
-import { Button } from "../../components/shared/Button";
-import { EXAMPLE_USER_01 } from "../../models/user";
-import Webcam from "react-webcam";
-import { useRef, useState, useCallback } from "react";
+import type { NextPage } from 'next'
+
+import { useRef, useState } from 'react'
+import Webcam from 'react-webcam'
+
+import { Button } from '../../components/shared/Button'
+import { Layout } from '../../components/shared/Layout'
 
 const videoConstraints = {
   width: 100,
   height: 50,
-  facingMode: "user",
-};
+  facingMode: 'user',
+}
 
 const Test: NextPage = () => {
-  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false);
-  const webcamRef = useRef<Webcam>(null);
+  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false)
+  const webcamRef = useRef<Webcam>(null)
 
   return (
     <Layout
@@ -22,7 +23,7 @@ const Test: NextPage = () => {
         <Button
           key="write memo"
           variant="solid-blue"
-          linkProps={{ href: "/test" }}
+          linkProps={{ href: '/test' }}
           className="px-4 h-10"
         >
           面接練習
@@ -52,7 +53,7 @@ const Test: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Test;
+export default Test

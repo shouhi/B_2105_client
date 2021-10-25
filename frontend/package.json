@@ -9,7 +9,7 @@
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint --ext .ts,.tsx,.js . --fix",
-    "test-all": "yarn type-check && yarn lint && yarn type-check"
+    "test-all": "yarn type-check && yarn lint && yarn format"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [

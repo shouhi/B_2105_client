@@ -1,27 +1,27 @@
-import React, { FC, useCallback, useState, useEffect } from "react";
-import firebase from "../../utils/firebase";
-import Router from "next/router";
+import firebase from 'firebase/compat/app'
+import Router from 'next/router'
+import { useEffect } from 'react'
 
 const Login = () => {
-  const auth = firebase.auth();
+  const auth = firebase.auth()
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user && Router.push("/");
-    });
-  }, []);
-  const handleFormSubmit = async (e) => {
-    let email = e.target.elements.email?.value;
-    let password = e.target.elements.password?.value;
-    e.preventDefault();
+    auth.onAuthStateChanged(user => {
+      user && Router.push('/')
+    })
+  }, [])
+  const handleFormSubmit = async e => {
+    const email = e.target.elements.email?.value
+    const password = e.target.elements.password?.value
+    e.preventDefault()
 
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password)
     } catch (err) {
-      alert(err.message);
+      alert(err.message)
     }
 
-    console.log(email, password);
-  };
+    console.log(email, password)
+  }
   return (
     <div>
       <div>
@@ -42,7 +42,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

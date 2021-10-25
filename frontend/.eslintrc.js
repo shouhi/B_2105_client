@@ -7,6 +7,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'prettier',
@@ -30,6 +31,12 @@ module.exports = {
     /*=======================
      * off
      *=======================*/
+
+    // jsx内での'import React from 'react''を強制しない
+    'react/jsx-runtime': 'off',
+
+    // 型定義をoff(一時)
+    'react/prop-types': 'off',
 
     // return の型を強制しない (ts が解析してくれる)
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -101,9 +108,6 @@ module.exports = {
         html: true,
       },
     ],
-
-    // propsの型定義
-    'react/prop-types': 'error',
 
     // 変数のvarを許容しない
     '@typescript-eslint/no-var-requires': 'error',

@@ -1,8 +1,7 @@
-import { Layout } from "../components/shared/Layout";
-import { Button } from "../components/shared/Button";
-import Image from "next/image";
-import Link from "next/link";
-import { NextPage } from "next";
+import { NextPage } from 'next'
+import Image from 'next/image'
+
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -13,9 +12,7 @@ const Home: NextPage = () => {
         <div className="pt-6 pb-12">
           <div className="flex items-end">
             <div>
-              <p>
-                今すぐ面接練習してみませんか？
-              </p>
+              <p>今すぐ面接練習してみませんか？</p>
               <div className="mt-6">
                 <p>
                   <Link href="/signup">
@@ -35,7 +32,7 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

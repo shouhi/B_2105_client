@@ -1,7 +1,8 @@
-import type { NextPage } from "next";
-import { Layout } from "../../components/shared/Layout";
-import { Button } from "../../components/shared/Button";
-import { EXAMPLE_USER_01 } from "../../models/user";
+import type { NextPage } from 'next'
+
+import { Button } from '../../components/shared/Button'
+import { Layout } from '../../components/shared/Layout'
+import { EXAMPLE_USER_01 } from '../../models/user'
 
 const Dashboard: NextPage = () => {
   return (
@@ -11,7 +12,7 @@ const Dashboard: NextPage = () => {
         <Button
           key="write memo"
           variant="solid-blue"
-          linkProps={{ href: "/test" }}
+          linkProps={{ href: '/test' }}
           className="px-4 h-10"
         >
           面接練習
@@ -42,7 +43,7 @@ const Dashboard: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

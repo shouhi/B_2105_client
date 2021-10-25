@@ -1,23 +1,91 @@
-import { ChevronLeftIcon, XIcon } from "@heroicons/react/outline";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { Fragment, memo, useCallback } from "react";
-import { Button } from "../shared/Button";
-import { auth } from "../../utils/firebase";
+import { ChevronLeftIcon, XIcon } from '@heroicons/react/outline'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Fragment, memo, useCallback } from 'react'
+
+import { auth } from '../../utils/firebase'
+import { Button } from '../shared/Button'
 
 //右側は自由に記載できるように
-type Right = "profile" | JSX.Element;
+type Right = 'profile' | JSX.Element
 
-const ICON_SIZE = "w-17 h-14";
+const ICON_SIZE = 'w-17 h-14'
 
 export type HeaderProps = {
-  left?: "back" | "close" | "icon" | JSX.Element;
-  center?: "account" | string | JSX.Element;
-  right?: ("profile" | JSX.Element)[];
-};
+  left?: 'back' | 'close' | 'icon' | JSX.Element
+  center?: 'account' | string | JSX.Element
+  right?: ('profile' | JSX.Element)[]
+}
 
-export const Header = memo<HeaderProps>((props) => {
+const Left = memo<Pick<HeaderProps, 'left'>>(props => {
+  const router = useRouter()
+  const handleClick = useCallback(() => {
+    const prevPath = sessionStorage.getItem('prevPath')
+    return prevPath ? router.back() : router.push('/')
+  }, [router])
+
+  if (!props.left) {
+    return <div className={ICON_SIZE} />
+  }
+  if (props.left === 'back' || props.left === 'close') {
+    return (
+      <Button variant="ghost" className={ICON_SIZE} onClick={handleClick}>
+        {props.left === 'back' ? <ChevronLeftIcon className="w-5 h-5" /> : null}
+        {props.left === 'close' ? <XIcon className="w-5 h-5" /> : null}
+      </Button>
+    )
+  }
+  if (props.left === 'icon') {
+    return (
+      <Link href="/dashboard">
+        <Image src="/icon.png" width={100} height={80} />
+      </Link>
+    )
+  }
+  return props.left
+})
+Left.displayName = 'Left'
+
+const Center = memo<Pick<HeaderProps, 'center'>>(props => {
+  if (!props.center) {
+    return null
+  }
+  if (props.center === 'account') {
+    return (
+      <Link href="/settings/">
+        {/* //settings系処理（アイコン入れるかな） */}
+      </Link>
+    )
+  }
+  if (typeof props.center === 'string') {
+    return <div className="text-xl font-bold">{props.center}</div>
+  }
+  return props.center
+})
+Center.displayName = 'Center'
+
+const Right = memo<Pick<HeaderProps, 'right'>>(props => {
+  if (!props.right) {
+    return <div className={ICON_SIZE} />
+  }
+  return (
+    <div className="flex items-center space-x-2 sm:space-x-3">
+      {props.right.map((item, i) => {
+        return (
+          <Fragment key={i}>
+            {/* {item === "profile" ? <UserMenu /> : item} */}
+            {item}
+          </Fragment>
+        )
+      })}
+      <Button onClick={() => auth.signOut()}>ログアウト</Button>
+    </div>
+  )
+})
+Right.displayName = 'Right'
+
+export const Header = memo<HeaderProps>(props => {
   return (
     <header className="flex justify-between items-center  px-8 shadow-md">
       <Left left={props.left} />
@@ -28,76 +96,9 @@ export const Header = memo<HeaderProps>((props) => {
 
       <Right right={props.right} />
     </header>
-  );
-});
-Header.displayName = "Header";
-
-const Left = memo<Pick<HeaderProps, "left">>((props) => {
-  const router = useRouter();
-  const handleClick = useCallback(() => {
-    const prevPath = sessionStorage.getItem("prevPath");
-    return prevPath ? router.back() : router.push("/");
-  }, [router]);
-
-  if (!props.left) {
-    return <div className={ICON_SIZE} />;
-  }
-  if (props.left === "back" || props.left === "close") {
-    return (
-      <Button variant="ghost" className={ICON_SIZE} onClick={handleClick}>
-        {props.left === "back" ? <ChevronLeftIcon className="w-5 h-5" /> : null}
-        {props.left === "close" ? <XIcon className="w-5 h-5" /> : null}
-      </Button>
-    );
-  }
-  if (props.left === "icon") {
-    return (
-      <Link href="/dashboard">
-        <Image src="/icon.png" width={100} height={80} />
-      </Link>
-    );
-  }
-  return props.left;
-});
-Left.displayName = "Left";
-
-const Center = memo<Pick<HeaderProps, "center">>((props) => {
-  if (!props.center) {
-    return null;
-  }
-  if (props.center === "account") {
-    return (
-      <Link href="/settings/">
-        {/* //settings系処理（アイコン入れるかな） */}
-      </Link>
-    );
-  }
-  if (typeof props.center === "string") {
-    return <div className="text-xl font-bold">{props.center}</div>;
-  }
-  return props.center;
-});
-Center.displayName = "Center";
-
-const Right = memo<Pick<HeaderProps, "right">>((props) => {
-  if (!props.right) {
-    return <div className={ICON_SIZE} />;
-  }
-  return (
-    <div className="flex items-center space-x-2 sm:space-x-3">
-      {props.right.map((item, i) => {
-        return (
-          <Fragment key={i}>
-            {/* {item === "profile" ? <UserMenu /> : item} */}
-            {item}
-          </Fragment>
-        );
-      })}
-      <Button onClick={() => auth.signOut()}>ログアウト</Button>
-    </div>
-  );
-});
-Right.displayName = "Right";
+  )
+})
+Header.displayName = 'Header'
 
 // const UserMenu: VFC = () => {
 //   const router = useRouter();
