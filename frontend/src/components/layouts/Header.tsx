@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fragment, memo, useCallback } from "react";
 import { Button } from "../shared/Button";
+import { auth } from "../../utils/firebase";
 
 //右側は自由に記載できるように
 type Right = "profile" | JSX.Element;
@@ -51,7 +52,7 @@ const Left = memo<Pick<HeaderProps, "left">>((props) => {
   }
   if (props.left === "icon") {
     return (
-      <Link href="/">
+      <Link href="/dashboard">
         <Image src="/icon.png" width={100} height={80} />
       </Link>
     );
@@ -92,6 +93,7 @@ const Right = memo<Pick<HeaderProps, "right">>((props) => {
           </Fragment>
         );
       })}
+      <Button onClick={() => auth.signOut()}>ログアウト</Button>
     </div>
   );
 });

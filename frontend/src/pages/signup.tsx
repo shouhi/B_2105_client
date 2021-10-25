@@ -14,7 +14,7 @@ const Signup: NextPage = () => {
   const auth = firebase.auth();
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      user && Router.push("/");
+      user && Router.push("/dashboard");
     });
   }, []);
 
