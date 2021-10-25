@@ -11,13 +11,27 @@ const Home: NextPage = () => {
         <Image src="/icon.png" width={250} height={200} />
         <p className="text-center text-xl font-bold mt-6">面接Tech</p>
         <div className="pt-6 pb-12">
-          <p className="text-lm">
-            今すぐ面接練習してみませんか？{" "}
-            <Link href="/dashboard">
-              <a className="text-blue-400">はじめる</a>
-            </Link>
+          <div className="flex items-end">
+            <div>
+              <p>
+                今すぐ面接練習してみませんか？
+              </p>
+              <div className="mt-6">
+                <p>
+                  <Link href="/signup">
+                    <a className="text-blue-400">はじめる</a>
+                  </Link>
+                </p>
+                <p>
+                  <span>アカウントをお持ちの方は</span>
+                  <Link href="/signin">
+                    <a className="text-blue-400">こちら</a>
+                  </Link>
+                </p>
+              </div>
+            </div>
             <Image src="/mock/mockup.png" width={500} height={400} />
-          </p>
+          </div>
         </div>
       </div>
     </div>
