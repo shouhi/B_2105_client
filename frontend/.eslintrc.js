@@ -9,14 +9,11 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:jest/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   env: {
     es2021: true,
     browser: true,
-    jest: true,
     node: true,
   },
   settings: {
