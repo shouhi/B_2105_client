@@ -34,6 +34,9 @@ const AuthProvider: FC = ({ children }) => {
           });
         }
       } else {
+        if (router.pathname === '/' || router.pathname === '/signup') {
+          return
+        }
         router.push("/signin");
       }
     });
