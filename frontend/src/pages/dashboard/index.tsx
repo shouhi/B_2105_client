@@ -11,7 +11,7 @@ const Dashboard: NextPage = () => {
         <Button
           key="write memo"
           variant="solid-blue"
-          linkProps={{ href: "/memos/new" }}
+          linkProps={{ href: "/test" }}
           className="px-4 h-10"
         >
           面接練習
