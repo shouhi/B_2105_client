@@ -1,14 +1,14 @@
-import { auth } from "../../utils/firebase";
+import { auth } from '../../utils/firebase'
 
-const socialMediaAuth = (provider) => {
+const socialMediaAuth = provider => {
   auth
     .signInWithPopup(provider)
-    .then((res) => {
-      return res.user;
+    .then(res => {
+      return res.user
     })
-    .catch((err) => {
-      return err;
-    });
-};
+    .catch(err => {
+      return err
+    })
+}
 
-export default socialMediaAuth;
+export default socialMediaAuth

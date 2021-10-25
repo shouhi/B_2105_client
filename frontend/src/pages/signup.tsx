@@ -1,28 +1,27 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import Router from "next/router";
-import React, { FC, useCallback, useState, useEffect } from "react";
+import firebase from 'firebase/compat/app'
+import type { NextPage } from 'next'
+import Link from 'next/link'
+import Router from 'next/router'
+import { useEffect } from 'react'
 
-import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
-import socialMediaAuth from "../components/auth/SocialMediaAuth";
-import { GithubIcon } from "../components/icon/GithubIcon";
-import { GoogleIcon } from "../components/icon/GoogleIcon";
-import { Button } from "../components/shared/Button";
-import LoginWidget from "../components/widgets/Login_widget";
-import firebase from "../utils/firebase";
+import { githubProvider, googleProvider } from '../components/auth/AuthMethods'
+import socialMediaAuth from '../components/auth/SocialMediaAuth'
+import { GithubIcon } from '../components/icon/GithubIcon'
+import { GoogleIcon } from '../components/icon/GoogleIcon'
+import { Button } from '../components/shared/Button'
 
 const Signup: NextPage = () => {
-  const auth = firebase.auth();
+  const auth = firebase.auth()
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user && Router.push("/dashboard");
-    });
-  }, []);
+    auth.onAuthStateChanged(user => {
+      user && Router.push('/dashboard')
+    })
+  }, [])
 
-  const handleOnClick = async (provider) => {
-    const res = await socialMediaAuth(provider);
-    console.log(res);
-  };
+  const handleOnClick = async provider => {
+    const res = await socialMediaAuth(provider)
+    console.log(res)
+  }
 
   return (
     <div className="bg-white font-family-karla h-screen">
@@ -63,7 +62,7 @@ const Signup: NextPage = () => {
               variant="solid-black"
               className="py-4 w-72 sm:w-80 mt-7"
               onClick={() => {
-                handleOnClick(githubProvider);
+                handleOnClick(githubProvider)
               }}
             >
               <div className="flex">
@@ -75,7 +74,7 @@ const Signup: NextPage = () => {
               variant="solid-white"
               className="py-4 w-72 sm:w-80 mt-5"
               onClick={() => {
-                handleOnClick(googleProvider);
+                handleOnClick(googleProvider)
               }}
             >
               <div className="flex">
@@ -86,7 +85,7 @@ const Signup: NextPage = () => {
             {/* <LoginWidget /> メールアドレス登録する場合に使います */}
             <div className=" pt-6 pb-12">
               <p className="text-sm">
-                既にアカウントをお持ちですか？{" "}
+                既にアカウントをお持ちですか？{' '}
                 <Link href="/signin">
                   <a className="text-blue-400">サインイン</a>
                 </Link>
@@ -96,6 +95,6 @@ const Signup: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
-export default Signup;
+  )
+}
+export default Signup

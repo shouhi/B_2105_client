@@ -1,19 +1,19 @@
-import clsx from "clsx";
-import type { VFC } from "react";
+import clsx from 'clsx'
+import type { VFC } from 'react'
 
 type Props = {
-  className?: string;
-  size?: "large" | "small";
-};
+  className?: string
+  size?: 'large' | 'small'
+}
 
-export const GoogleIcon: VFC<Props> = (props) => {
+export const GoogleIcon: VFC<Props> = props => {
   const classes = clsx([
     {
-      "w-8 h-8": props.size === "large",
-      "w-6 h-6": props.size === "small",
+      'w-8 h-8': props.size === 'large',
+      'w-6 h-6': props.size === 'small',
     },
     props.className,
-  ]);
+  ])
 
   return (
     <svg
@@ -39,11 +39,11 @@ export const GoogleIcon: VFC<Props> = (props) => {
         fill="#EA4335"
       />
     </svg>
-  );
-};
+  )
+}
 
 // Propsのデフォルト値
 GoogleIcon.defaultProps = {
-  className: "",
-  size: "small",
-};
+  className: '',
+  size: 'small',
+}

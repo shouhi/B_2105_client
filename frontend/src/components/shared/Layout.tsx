@@ -1,15 +1,15 @@
-import type { ReactNode, VFC } from "react";
+import type { ReactNode, VFC } from 'react'
 
-import type { HeaderProps } from "../layouts/Header";
-import { Header } from "../layouts/Header";
+import type { HeaderProps } from '../layouts/Header'
+import { Header } from '../layouts/Header'
 
 type Props = HeaderProps & {
-  children: ReactNode;
+  children: ReactNode
   // isHeaderNarrow?: boolean;
-};
+}
 
-export const Layout: VFC<Props> = (props) => {
-  const { children, ...headerProps } = props;
+export const Layout: VFC<Props> = props => {
+  const { children, ...headerProps } = props
 
   return (
     <div className="pb-20">
@@ -27,5 +27,5 @@ export const Layout: VFC<Props> = (props) => {
         </div>
       </footer>
     </div>
-  );
-};
+  )
+}
