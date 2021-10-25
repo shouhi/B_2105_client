@@ -1,10 +1,11 @@
 import { ChevronLeftIcon, XIcon } from "@heroicons/react/outline";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, memo, useCallback } from "react";
-import { Button } from "../shared/Button";
+
 import { auth } from "../../utils/firebase";
+import { Button } from "../shared/Button";
 
 //右側は自由に記載できるように
 type Right = "profile" | JSX.Element;

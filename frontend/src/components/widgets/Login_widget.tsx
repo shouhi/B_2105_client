@@ -1,6 +1,7 @@
-import React, { FC, useCallback, useState, useEffect } from "react";
-import firebase from "../../utils/firebase";
 import Router from "next/router";
+import React, { FC, useCallback, useState, useEffect } from "react";
+
+import firebase from "../../utils/firebase";
 
 const Login = () => {
   const auth = firebase.auth();
@@ -10,8 +11,8 @@ const Login = () => {
     });
   }, []);
   const handleFormSubmit = async (e) => {
-    let email = e.target.elements.email?.value;
-    let password = e.target.elements.password?.value;
+    const email = e.target.elements.email?.value;
+    const password = e.target.elements.password?.value;
     e.preventDefault();
 
     try {

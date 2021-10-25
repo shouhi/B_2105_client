@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
-import { Layout } from "../../components/shared/Layout";
-import { Button } from "../../components/shared/Button";
-import { EXAMPLE_USER_01 } from "../../models/user";
-import Webcam from "react-webcam";
+
 import { useRef, useState, useCallback } from "react";
+import Webcam from "react-webcam";
+
+import { Button } from "../../components/shared/Button";
+import { Layout } from "../../components/shared/Layout";
+import { EXAMPLE_USER_01 } from "../../models/user";
+
 
 const videoConstraints = {
   width: 100,

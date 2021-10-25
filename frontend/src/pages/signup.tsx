@@ -1,14 +1,15 @@
-import React, { FC, useCallback, useState, useEffect } from "react";
-import Router from "next/router";
-import { Button } from "../components/shared/Button";
-import Link from "next/link";
 import type { NextPage } from "next";
-import { GithubIcon } from "../components/icon/GithubIcon";
-import { GoogleIcon } from "../components/icon/GoogleIcon";
-import firebase from "../utils/firebase";
+import Link from "next/link";
+import Router from "next/router";
+import React, { FC, useCallback, useState, useEffect } from "react";
+
 import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
 import socialMediaAuth from "../components/auth/SocialMediaAuth";
+import { GithubIcon } from "../components/icon/GithubIcon";
+import { GoogleIcon } from "../components/icon/GoogleIcon";
+import { Button } from "../components/shared/Button";
 import LoginWidget from "../components/widgets/Login_widget";
+import firebase from "../utils/firebase";
 
 const Signup: NextPage = () => {
   const auth = firebase.auth();

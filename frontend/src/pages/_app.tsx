@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
 import { AppProps } from "next/app";
+import React, { useEffect } from "react";
+
 import { AuthProvider } from "../components/auth/AuthProvider";
 import "../../styles/globals.css";
 

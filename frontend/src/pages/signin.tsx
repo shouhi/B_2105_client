@@ -1,14 +1,18 @@
-import React, { useContext, useEffect } from "react";
 import type { NextPage } from "next";
-import { AuthContext } from "../components/auth/AuthProvider";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { useContext, useEffect } from "react";
+
+import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
+import { AuthContext } from "../components/auth/AuthProvider";
+
+
+import socialMediaAuth from "../components/auth/SocialMediaAuth";
+import { GithubIcon } from "../components/icon/GithubIcon";
 import { GoogleIcon } from "../components/icon/GoogleIcon";
 import { Button } from "../components/shared/Button";
-import Link from "next/link";
-import Image from "next/image";
-import { GithubIcon } from "../components/icon/GithubIcon";
-import { githubProvider, googleProvider } from "../components/auth/AuthMethods";
-import socialMediaAuth from "../components/auth/SocialMediaAuth";
+
 
 const Signin: NextPage = () => {
   const router = useRouter();

@@ -1,8 +1,10 @@
-import { Layout } from "../components/shared/Layout";
-import { Button } from "../components/shared/Button";
-import Image from "next/image";
-import Link from "next/link";
 import { NextPage } from "next";
+import Image from "next/image";
+
+import Link from "next/link";
+
+import { Button } from "../components/shared/Button";
+import { Layout } from "../components/shared/Layout";
 
 const Home: NextPage = () => {
   return (

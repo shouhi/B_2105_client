@@ -1,7 +1,8 @@
 import firebase from "firebase/compat/app";
-import { FC, createContext, useEffect, useState } from "react";
-import { auth } from "../../utils/firebase";
 import { useRouter } from "next/router";
+import { FC, createContext, useEffect, useState } from "react";
+
+import { auth } from "../../utils/firebase";
 
 type AuthContextProps = {
   currentUser: firebase.User | null | undefined;

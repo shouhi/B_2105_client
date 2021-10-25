@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
-import { Layout } from "../../components/shared/Layout";
+
 import { Button } from "../../components/shared/Button";
+import { Layout } from "../../components/shared/Layout";
 import { EXAMPLE_USER_01 } from "../../models/user";
 
 const Dashboard: NextPage = () => {
