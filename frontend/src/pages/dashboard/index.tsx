@@ -1,24 +1,11 @@
 import type { NextPage } from 'next'
 
-import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 import { EXAMPLE_USER_01 } from '../../models/user'
 
 const Dashboard: NextPage = () => {
   return (
-    <Layout
-      left="icon"
-      right={[
-        <Button
-          key="write memo"
-          variant="solid-blue"
-          linkProps={{ href: '/test' }}
-          className="px-4 h-10"
-        >
-          面接練習
-        </Button>,
-      ]}
-    >
+    <Layout left="icon" right={['profile']}>
       <div className="p-10 bg-gray-100">
         <div className="rounded-xl max-w-5xl overflow-hidden shadow-lg bg-gray-50 py-5">
           <div className="px-6 py-4">
