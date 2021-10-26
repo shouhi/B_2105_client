@@ -21,8 +21,8 @@ export type UserPutRequest =
   | Pick<UserType, 'id' | 'instagram'>
   | Pick<UserType, 'id' | 'discription'>
 
-export type OccupationType = {
+export type InterviewModeType = {
   id: string
-  occupation: string
+  mode: string
   name: string
 }

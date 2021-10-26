@@ -6,11 +6,11 @@ import { useState } from 'react'
 import { Button } from '../../components/shared/Button'
 
 import { Layout } from '../../components/shared/Layout'
-import { EXAMPLE_OCCUPATION } from '../../models/occupation'
+import { InterviewMode } from '../../utils/mode'
 import { EXAMPLE_USER_01 } from '../../models/user'
 
 const Dashboard: NextPage = () => {
-  const [occupation, setOccupation] = useState<string | undefined>(undefined)
+  const [mode, setMode] = useState<string | undefined>(undefined)
   const { push } = useRouter()
 
   const handleClickStartInterview = (value: string) => {
@@ -52,18 +52,18 @@ const Dashboard: NextPage = () => {
           <div className="rounded-xl w-full overflow-hidden shadow-lg bg-gray-50 py-5">
             <div className="w-96 m-8">
               <RadioGroup
-                value={occupation}
-                onChange={setOccupation}
+                value={mode}
+                onChange={setMode}
                 className="mb-5 w-full"
               >
                 <RadioGroup.Label className="font-bold text-lg">
                   職種
                 </RadioGroup.Label>
                 <div className="flex space-x-5">
-                  {EXAMPLE_OCCUPATION.map(({ id, occupation, name }) => (
+                  {InterviewMode.map(({ id, mode, name }) => (
                     <RadioGroup.Option
                       key={id}
-                      value={occupation}
+                      value={mode}
                       className={({ checked, active }) => `
                         ${checked ? 'bg-blue-400' : ''}
                         ${active ? 'bg-blue-400' : ''}
@@ -89,7 +89,7 @@ const Dashboard: NextPage = () => {
                 key="write memo"
                 variant="solid-blue"
                 className="px-4 h-10 w-full"
-                onClick={() => handleClickStartInterview(occupation)}
+                onClick={() => handleClickStartInterview(mode)}
               >
                 面接練習
               </Button>
