@@ -20,3 +20,9 @@ export type UserPutRequest =
   | Pick<UserType, 'id' | 'twitter'>
   | Pick<UserType, 'id' | 'instagram'>
   | Pick<UserType, 'id' | 'discription'>
+
+export type OccupationType = {
+  id: string
+  occupation: string
+  name: string
+}
