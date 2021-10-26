@@ -2,6 +2,7 @@ import { RadioGroup } from '@headlessui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+
 import { Button } from '../../components/shared/Button'
 
 import { Layout } from '../../components/shared/Layout'
@@ -17,7 +18,7 @@ const Dashboard: NextPage = () => {
       alert('選択してください')
       return
     }
-    push({pathname: '/test', query: {id: value}})
+    push({ pathname: '/test', query: { id: value } })
   }
 
   return (
@@ -47,30 +48,36 @@ const Dashboard: NextPage = () => {
         </div>
         {/* NewInterview */}
         <div className="my-10">
-          <p className="font-bold text-xl pl-2 mb-2">
-            新規面接
-          </p>
+          <p className="font-bold text-xl pl-2 mb-2">新規面接</p>
           <div className="rounded-xl w-full overflow-hidden shadow-lg bg-gray-50 py-5">
             <div className="w-96 m-8">
-              <RadioGroup value={occupation} onChange={setOccupation} className="mb-5 w-full">
-                <RadioGroup.Label className="font-bold text-lg">職種</RadioGroup.Label>
+              <RadioGroup
+                value={occupation}
+                onChange={setOccupation}
+                className="mb-5 w-full"
+              >
+                <RadioGroup.Label className="font-bold text-lg">
+                  職種
+                </RadioGroup.Label>
                 <div className="flex space-x-5">
-                  {EXAMPLE_OCCUPATION.map(({id, occupation, name}) => (
+                  {EXAMPLE_OCCUPATION.map(({ id, occupation, name }) => (
                     <RadioGroup.Option
                       key={id}
                       value={occupation}
-                      className={({checked, active}) => (`
+                      className={({ checked, active }) => `
                         ${checked ? 'bg-blue-400' : ''}
                         ${active ? 'bg-blue-400' : ''}
                         relative rounded-md shadow-md px-5 py-4 cursor-pointer flex w-48
-                      `)}
+                      `}
                     >
                       {({ checked, active }) => (
-                        <span className={`
+                        <span
+                          className={`
                           ${checked ? 'text-white' : ''}
                           ${active ? 'text-white' : ''}
                           text-center
-                        `}>
+                        `}
+                        >
                           {name}
                         </span>
                       )}
