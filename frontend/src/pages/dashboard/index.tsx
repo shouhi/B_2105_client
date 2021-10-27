@@ -1,16 +1,11 @@
-import { RadioGroup } from '@headlessui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-
-import { Button } from '../../components/shared/Button'
 
 import { Layout } from '../../components/shared/Layout'
-import { InterviewMode } from '../../utils/mode'
 import { EXAMPLE_USER_01 } from '../../models/user'
+import { InterviewMode } from '../../utils/mode'
 
 const Dashboard: NextPage = () => {
-  const [mode, setMode] = useState<string | undefined>(undefined)
   const { push } = useRouter()
 
   const handleClickStartInterview = (value: string) => {
@@ -49,50 +44,25 @@ const Dashboard: NextPage = () => {
         {/* NewInterview */}
         <div className="my-10">
           <p className="font-bold text-xl pl-2 mb-2">新規面接</p>
-          <div className="rounded-xl w-full overflow-hidden shadow-lg bg-gray-50 py-5">
-            <div className="w-96 m-8">
-              <RadioGroup
-                value={mode}
-                onChange={setMode}
-                className="mb-5 w-full"
-              >
-                <RadioGroup.Label className="font-bold text-lg">
-                  職種
-                </RadioGroup.Label>
-                <div className="flex space-x-5">
-                  {InterviewMode.map(({ id, mode, name }) => (
-                    <RadioGroup.Option
-                      key={id}
-                      value={mode}
-                      className={({ checked, active }) => `
-                        ${checked ? 'bg-blue-400' : ''}
-                        ${active ? 'bg-blue-400' : ''}
-                        relative rounded-md shadow-md px-5 py-4 cursor-pointer flex w-48
-                      `}
+          <div className="rounded-xl max-w-5xl overflow-hidden shadow-lg bg-gray-50 py-5 flex justify-center">
+            <div className="m-8">
+              <p className="font-bold text-lg mb-5">面接モード選択</p>
+              <div className="flex space-x-16">
+                {InterviewMode.map(({ id, mode, name }) => (
+                  <div key={id}>
+                    <div
+                      className="
+                        rounded-md shadow-lg cursor-pointer flex items-center justify-center
+                        w-80 h-80 bg-blue-500 text-gray-50 font-bold text-lg
+                        hover:bg-opacity-50 transition ease-in-out duration-300
+                      "
+                      onClick={() => handleClickStartInterview(mode)}
                     >
-                      {({ checked, active }) => (
-                        <span
-                          className={`
-                          ${checked ? 'text-white' : ''}
-                          ${active ? 'text-white' : ''}
-                          text-center
-                        `}
-                        >
-                          {name}
-                        </span>
-                      )}
-                    </RadioGroup.Option>
-                  ))}
-                </div>
-              </RadioGroup>
-              <Button
-                key="write memo"
-                variant="solid-blue"
-                className="px-4 h-10 w-full"
-                onClick={() => handleClickStartInterview(mode)}
-              >
-                面接練習
-              </Button>
+                      {name}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
