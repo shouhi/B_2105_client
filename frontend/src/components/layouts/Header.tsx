@@ -8,9 +8,10 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Fragment, memo, useCallback, VFC } from 'react'
+import { Fragment, memo, useCallback, useContext, VFC } from 'react'
 
 import { auth } from '../../utils/firebase'
+import { AuthContext } from '../auth/AuthProvider'
 import { Avatar } from '../shared/Avatar'
 import { Button } from '../shared/Button'
 
@@ -33,7 +34,7 @@ const UserMenu: VFC = () => {
   //   uid && firebase.firestore().doc(`user/${uid}`)
   // );
 
-  const default_url = '/icon.png'
+  const { currentUser } = useContext(AuthContext)
 
   const handleSignOut = async () => {
     try {
@@ -53,7 +54,7 @@ const UserMenu: VFC = () => {
               <Popover.Button className="rounded-full focus-visible:ring-2 focus-visible:ring-blue-400 focus:outline-none">
                 <Avatar
                   alt={'userIcon'}
-                  src={default_url}
+                  src={currentUser?.photoURL}
                   className={ICON_SIZE}
                 />
               </Popover.Button>
@@ -71,7 +72,7 @@ const UserMenu: VFC = () => {
                 >
                   <Popover.Panel
                     static
-                    className="absolute mt-2 w-72 transform -translate-x-full left-20"
+                    className="absolute mt-2 w-96 transform -translate-x-full left-20"
                   >
                     <div className="overflow-hidden py-4 bg-white rounded-2xl ring-1 ring-gray-400 ring-opacity-20 shadow-lg">
                       <div>
@@ -79,17 +80,15 @@ const UserMenu: VFC = () => {
                           <a className="flex items-center p-4 hover:bg-gray-100 focus-visible:bg-gray-100 focus:outline-none">
                             <Avatar
                               alt={'userIcon'}
-                              src={default_url}
+                              src={currentUser?.photoURL}
                               className="w-17 h-14"
                             />
                             <div className="ml-4">
                               <p className="text-base font-bold">
-                                {/* {user?.name} */}
-                                ユーザー名
+                                {currentUser?.displayName}
                               </p>
                               <p className="text-sm text-gray-400">
-                                {/* @{user?.id} */}
-                                uuid
+                                {currentUser?.uid}
                               </p>
                             </div>
                           </a>
