@@ -1,20 +1,55 @@
 import type { NextPage } from 'next'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
 
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 
-const videoConstraints = {
-  width: 100,
-  height: 50,
-  facingMode: 'user',
-}
-
 const Test: NextPage = () => {
-  const [isCaptureEnable, setCaptureEnable] = useState<boolean>(false)
-  const webcamRef = useRef<Webcam>(null)
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [capturing, setCapturing] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+
+  const handleStartCaptureClick = useCallback(() => {
+    setCapturing(true);
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: "video/webm"
+    });
+    mediaRecorderRef.current.addEventListener(
+      "dataavailable",
+      handleDataAvailable
+    );
+    mediaRecorderRef.current.start();
+  }, [webcamRef, setCapturing, mediaRecorderRef]);
+
+  const handleDataAvailable = useCallback(
+    ({ data }) => {
+      if (data.size > 0) {
+        setRecordedChunks((prev) => prev.concat(data));
+      }
+    },
+    [setRecordedChunks]
+  );
+
+  const handleStopCaptureClick = useCallback(() => {
+    mediaRecorderRef.current.stop();
+    setCapturing(false);
+  }, [mediaRecorderRef, webcamRef, setCapturing]);
+
+  const handleDownload = useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm"
+      });
+      const url = URL.createObjectURL(blob)
+      console.log(url)
+      window.URL.revokeObjectURL(url)
+      setRecordedChunks([]);
+    }
+  }, [recordedChunks]);
+
 
   return (
     <Layout
@@ -31,24 +66,15 @@ const Test: NextPage = () => {
       ]}
     >
       <div className="p-10 bg-gray-100">
-        <div className="rounded-xl max-w-5xl container mx-auto overflow-hidden shadow-lg bg-gray-50 py-5">
-          {isCaptureEnable || (
-            <button onClick={() => setCaptureEnable(true)}>開始</button>
+        <div className="rounded-xl max-w-5xl  container mx-auto overflow-hidden shadow-lg bg-gray-50 p-10">
+          <Webcam audio={false} ref={webcamRef} className="w-full" />
+          {capturing ? (
+            <Button variant="solid-red" onClick={handleStopCaptureClick} className="px-4 h-10">Stop Capture</Button>
+          ) : (
+            <Button variant="solid-blue" onClick={handleStartCaptureClick} className="px-4 h-10">開始する</Button>
           )}
-          {isCaptureEnable && (
-            <>
-              <div>
-                <button onClick={() => setCaptureEnable(false)}>終了</button>
-              </div>
-              <div>
-                <Webcam
-                  audio={false}
-                  width={1000}
-                  ref={webcamRef}
-                  videoConstraints={videoConstraints}
-                />
-              </div>
-            </>
+          {recordedChunks.length > 0 && (
+            <Button onClick={handleDownload}>download</Button>
           )}
         </div>
       </div>
