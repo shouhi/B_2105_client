@@ -46,7 +46,7 @@ const Signin: NextPage = () => {
             >
               <div className="flex">
                 <GithubIcon iconColor="white" className="mr-3" />
-                <span>Sign up with Github</span>
+                <span>Sign in with Github</span>
               </div>
             </Button>
             <Button
@@ -58,18 +58,9 @@ const Signin: NextPage = () => {
             >
               <div className="flex">
                 <GoogleIcon className="mr-3" />
-                <span>Sign up with Google</span>
+                <span>Sign in with Google</span>
               </div>
             </Button>
-            {/* <LoginWidget /> メールアドレス登録する場合に使います */}
-            <div className=" pt-6 pb-12">
-              <p className="text-sm">
-                既にアカウントをお持ちですか？{' '}
-                <Link href="/signin">
-                  <a className="text-blue-400">サインイン</a>
-                </Link>
-              </p>
-            </div>
           </div>
         </div>
       </div>
