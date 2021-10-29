@@ -101,7 +101,7 @@ const Test: NextPage = () => {
                     onClick={handleClickNextQuestion}
                     className="px-4 h-10"
                   >
-                    Next Question
+                    次の質問へ
                   </Button>
               )}
               <Button
@@ -109,7 +109,7 @@ const Test: NextPage = () => {
                 onClick={handleStopCaptureClick}
                 className="px-4 h-10"
               >
-                Stop Capture
+                面接を終了する
               </Button>
             </>
           ) : (
