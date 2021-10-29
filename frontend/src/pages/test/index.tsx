@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { useRef, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
 
+import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 
 const Test: NextPage = () => {
