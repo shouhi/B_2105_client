@@ -1,15 +1,14 @@
 import { ClockIcon, UserIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import Webcam from 'react-webcam'
 
-import { AuthContext } from '../../components/auth/AuthProvider'
+import { AuthContext, QuestionsContext } from '../../components/auth/AuthProvider'
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
-import { EXAMPLE_QUESTIONS } from '../../models/questions'
 import { QuestionType } from '../../types/types'
 
 const Test: NextPage = () => {
@@ -22,17 +21,20 @@ const Test: NextPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
 
-  // const { query, push } = useRouter()
+  const { query } = useRouter()
   const { currentUser } = useContext(AuthContext)
+  const { questions } = useContext(QuestionsContext)
   const getIdToken = currentUser?.getIdToken()
 
   useEffect(() => {
-    // if (query.id === 'practice') {
-    //   const questions = shuffle(EXAMPLE_QUESTIONS)
-    //   setInterviewQuestions(questions)
-    // }
-    setInterviewQuestions(EXAMPLE_QUESTIONS)
-  }, [interviewQuestions])
+    if (query.id === 'practice') {
+      const randomNumber = Math.floor(Math.random() * questions.length)
+      console.log(randomNumber)
+      setInterviewQuestions([questions[randomNumber]])
+      return
+    }
+    setInterviewQuestions(questions)
+  }, [questions])
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -116,6 +118,10 @@ const Test: NextPage = () => {
   }
 
   useEffect(() => {
+    if (query.id === 'practice') {
+      setCurrentQuestion(interviewQuestions[0])
+      return
+    }
     setCurrentQuestion(interviewQuestions[questionId])
   }, [questionId, interviewQuestions, currentQuestion])
 
@@ -127,7 +133,7 @@ const Test: NextPage = () => {
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
               <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
-                {currentQuestion.question}
+                {currentQuestion.text}
               </p>
               <div className="w-10 ml-3">
                 <ClockIcon className="w-10 h-10" />
