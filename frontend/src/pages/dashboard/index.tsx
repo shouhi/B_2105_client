@@ -1,6 +1,9 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
+import { useContext } from 'react'
+
+import { AuthContext } from '../../components/auth/AuthProvider'
 import { Layout } from '../../components/shared/Layout'
 import { EXAMPLE_USER_01 } from '../../models/user'
 import { InterviewMode } from '../../utils/mode'
@@ -16,6 +19,8 @@ const Dashboard: NextPage = () => {
     push({ pathname: '/test', query: { id: value } })
   }
 
+  const { currentUser } = useContext(AuthContext)
+
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-10 bg-gray-100">
@@ -24,7 +29,7 @@ const Dashboard: NextPage = () => {
           <div className="rounded-xl max-w-5xl overflow-hidden shadow-lg bg-gray-50 py-5 my-5">
             <div className="px-6 py-4">
               <div className="font-bold text-2xl mb-2">
-                🦔 Hello ! {EXAMPLE_USER_01.name} さん
+                🦔 Hello ! {currentUser?.displayName} さん
               </div>
               <p className="text-gray-700 text-base">
                 {EXAMPLE_USER_01.discription}

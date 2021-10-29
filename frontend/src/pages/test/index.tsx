@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import { useRef, useState } from 'react'
 import Webcam from 'react-webcam'
 
-import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 
 const videoConstraints = {
@@ -17,19 +16,7 @@ const Test: NextPage = () => {
   const webcamRef = useRef<Webcam>(null)
 
   return (
-    <Layout
-      left="icon"
-      right={[
-        <Button
-          key="write memo"
-          variant="solid-blue"
-          linkProps={{ href: '/test' }}
-          className="px-4 h-10"
-        >
-          面接練習
-        </Button>,
-      ]}
-    >
+    <Layout left="icon" right={['profile']}>
       <div className="p-10 bg-gray-100">
         <div className="rounded-xl max-w-5xl container mx-auto overflow-hidden shadow-lg bg-gray-50 py-5">
           {isCaptureEnable || (
