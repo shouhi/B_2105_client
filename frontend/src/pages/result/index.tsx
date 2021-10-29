@@ -1,11 +1,3 @@
-import firebase from 'firebase/compat/app'
-import {
-  collection,
-  FirestoreDataConverter,
-  getFirestore,
-  QueryDocumentSnapshot,
-  WithFieldValue,
-} from 'firebase/firestore'
 import type { NextPage } from 'next'
 // import { useRouter } from 'next/router'
 // import { useContext } from 'react'
