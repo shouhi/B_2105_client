@@ -32,8 +32,7 @@ const Test: NextPage = () => {
       setInterviewQuestions([questions[randomNumber]])
       return
     }
-    const randomNumbers = Array.from({ length: 3 }, () => Math.floor(Math.random() * questions.length))
-    const randomQuestions = randomNumbers.map((number) => questions[number])
+    const randomQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 3)
     setInterviewQuestions(randomQuestions)
   }, [questions])
 
