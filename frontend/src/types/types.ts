@@ -26,3 +26,8 @@ export type InterviewModeType = {
   mode: string
   name: string
 }
+
+export type QuestionType = {
+  id: string
+  question: string
+}
