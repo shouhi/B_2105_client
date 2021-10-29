@@ -1,10 +1,12 @@
 import { ClockIcon, UserIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
 // import { useRouter } from 'next/router'
+import axios from 'axios'
 
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import Webcam from 'react-webcam'
 
+import { AuthContext } from '../../components/auth/AuthProvider'
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 import { EXAMPLE_QUESTIONS } from '../../models/questions'
@@ -21,6 +23,8 @@ const Test: NextPage = () => {
   const [interviewTime, setInterviewTime] = useState('00:00')
 
   // const { query, push } = useRouter()
+  const { currentUser } = useContext(AuthContext)
+  const getIdToken = currentUser?.getIdToken()
 
   useEffect(() => {
     // if (query.id === 'practice') {
@@ -75,8 +79,20 @@ const Test: NextPage = () => {
         type: 'video/webm',
       })
       const url = URL.createObjectURL(blob)
-      // TODO: connection with backend
-      window.open(url)
+      getIdToken.then((idToken) => {
+        const axiosBase = axios.create({
+          baseURL: 'https://jphacks-server-ydpiyrw4ja-dt.a.run.app',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': idToken,
+            'X-Requested-With': 'XMLHttpRequest',
+          }
+        })
+        const interviewId = "6QgXzpKQlixQHrSYpH87"
+        axiosBase.post('/upload_movie', {interview_id: interviewId, file: url}).then((res) => {
+          console.log(res)
+        })
+      })
       setRecordedChunks([])
     }
   }, [recordedChunks])
