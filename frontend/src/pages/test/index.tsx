@@ -20,17 +20,6 @@ const Test: NextPage = () => {
 
   // const { query } = useRouter()
 
-  // 配列内の要素の順番をシャッフル（フィッシャー・イェーツのランダムソート）
-  // const shuffle = ([...array]) => {
-  //   for(let i = array.length - 1; i > 0; i--) {
-  //       const j = Math.floor(Math.random() * (i + 1))
-  //       const tmp = array[i]
-  //       array[i] = array[j]
-  //       array[j] = tmp
-  //   }
-  //   return array
-  // }
-
   useEffect(() => {
     // if (query.id === 'practice') {
     //   const questions = shuffle(EXAMPLE_QUESTIONS)
@@ -63,7 +52,7 @@ const Test: NextPage = () => {
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop()
     setCapturing(false)
-  }, [mediaRecorderRef, webcamRef, setCapturing])
+  }, [recordedChunks, setCapturing, mediaRecorderRef])
 
   const handleDownload = useCallback(() => {
     if (recordedChunks.length) {
@@ -71,11 +60,15 @@ const Test: NextPage = () => {
         type: 'video/webm',
       })
       const url = URL.createObjectURL(blob)
-      console.log(url)
-      window.URL.revokeObjectURL(url)
+      // TODO: connection with backend
+      window.open(url)
       setRecordedChunks([])
     }
   }, [recordedChunks])
+
+  useEffect(() => {
+    handleDownload()
+  }, [recordedChunks, handleDownload])
 
   const handleClickNextQuestion = () => {
     const nextId = questionId + 1
@@ -127,9 +120,6 @@ const Test: NextPage = () => {
             >
               開始する
             </Button>
-          )}
-          {recordedChunks.length > 0 && (
-            <Button onClick={handleDownload}>download</Button>
           )}
         </div>
       </div>
