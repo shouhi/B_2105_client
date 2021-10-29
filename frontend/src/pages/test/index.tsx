@@ -1,4 +1,4 @@
-import { UserIcon } from '@heroicons/react/outline'
+import { ClockIcon, UserIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
 // import { useRouter } from 'next/router'
 
@@ -18,6 +18,7 @@ const Test: NextPage = () => {
   const [interviewQuestions, setInterviewQuestions] = useState<QuestionType[]>([])
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
+  const [interviewTime, setInterviewTime] = useState('00:00')
 
   // const { query, push } = useRouter()
 
@@ -37,6 +38,17 @@ const Test: NextPage = () => {
     },
     [setRecordedChunks]
   )
+  const mesureTheTimeOfTheInterview = useCallback(() => {
+    const startTime = Date.now()
+    const interval = setInterval(() => {
+      const time = Date.now() - startTime
+      const seconds = Math.floor(time / 1000)
+      const minutes = Math.floor(seconds / 60)
+      const setTime = `${String(minutes).padStart(2, '0')}:${String(seconds - minutes * 60).padStart(2, '0')}`
+      setInterviewTime(setTime)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleStartCaptureClick = useCallback(() => {
     setCapturing(true)
@@ -48,6 +60,7 @@ const Test: NextPage = () => {
       handleDataAvailable
     )
     mediaRecorderRef.current.start()
+    mesureTheTimeOfTheInterview()
   }, [webcamRef, setCapturing, mediaRecorderRef])
 
   const handleStopCaptureClick = useCallback(() => {
@@ -86,11 +99,15 @@ const Test: NextPage = () => {
       <div className="p-3 bg-gray-100">
         <div className="rounded-xl max-w-5xl container mx-auto overflow-hidden shadow-lg bg-gray-50 p-10">
           {capturing ? (
-            <div className="flex">
+            <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
-              <p className="rounded-md w-full bg-blue-100 text-xl flex items-center justify-center">
+              <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
                 {currentQuestion.question}
               </p>
+              <div className="w-10 ml-3">
+                <ClockIcon className="w-10 h-10" />
+                <p>{interviewTime}</p>
+              </div>
             </div>
           ) : (
             <p className="rounded-md w-full bg-blue-100 text-xl flex items-center justify-center h-12">
