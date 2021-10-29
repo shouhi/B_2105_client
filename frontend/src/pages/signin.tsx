@@ -24,45 +24,53 @@ const Signin: NextPage = () => {
     const res = await socialMediaAuth(provider)
     console.log(res)
   }
-
   return (
-    <div className="w-screen h-screen bg-white font-family-karla">
-      <div className="grid place-items-center mt-12 md:pt-0 md:px-24 lg:px-32">
-        <Image src="/icon.png" width={250} height={200} />
-        <p className="text-center text-xl font-bold mt-6">
-          アカウントにログイン
-        </p>
-        <Button
-          variant="solid-black"
-          className="py-4 w-72 sm:w-80 mt-7"
-          onClick={() => {
-            handleOnClick(githubProvider)
-          }}
-        >
-          <div className="flex">
-            <GithubIcon iconColor="white" className="mr-3" />
-            <span>Sign in with Github</span>
+    <div className="bg-white font-family-karla h-screen">
+      <div className="w-full flex flex-wrap">
+        {/* 左側 */}
+        <div className="w-full md:w-1/2 flex flex-col bg-tazer-blue">
+          <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
           </div>
-        </Button>
-        <Button
-          variant="solid-white"
-          className="py-4 w-72 sm:w-80 mt-5"
-          onClick={() => {
-            handleOnClick(googleProvider)
-          }}
-        >
-          <div className="flex">
-            <GoogleIcon className="mr-3" />
-            <span>Sign in with Google</span>
+        </div>
+        {/* 右側 */}
+        <div className="w-full md:w-1/2 flex flex-col bg-light-blue">
+          <div className="flex flex-col  my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+            <p className="text-center text-3xl font-bold mt-28 text-tazer-blue">Welcome back!</p>
+            <Image src="/tayzer.png" width={200} height={250} />
+            <Button
+              variant="solid-black"
+              className="py-4 w-72 sm:w-80 mt-7"
+              onClick={() => {
+                handleOnClick(githubProvider)
+              }}
+            >
+              <div className="flex">
+                <GithubIcon iconColor="white" className="mr-3" />
+                <span>Sign up with Github</span>
+              </div>
+            </Button>
+            <Button
+              variant="solid-white"
+              className="py-4 w-72 sm:w-80 mt-5"
+              onClick={() => {
+                handleOnClick(googleProvider)
+              }}
+            >
+              <div className="flex">
+                <GoogleIcon className="mr-3" />
+                <span>Sign up with Google</span>
+              </div>
+            </Button>
+            {/* <LoginWidget /> メールアドレス登録する場合に使います */}
+            <div className=" pt-6 pb-12">
+              <p className="text-sm">
+                既にアカウントをお持ちですか？{' '}
+                <Link href="/signin">
+                  <a className="text-blue-400">サインイン</a>
+                </Link>
+              </p>
+            </div>
           </div>
-        </Button>
-        <div className=" pt-6 pb-12">
-          <p className="text-sm">
-            アカウントをお持ちでありませんか？{' '}
-            <Link href="/signup">
-              <a className="text-blue-400">サインアップ</a>
-            </Link>
-          </p>
         </div>
       </div>
     </div>
