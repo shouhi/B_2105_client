@@ -1,3 +1,4 @@
+import { UserIcon } from '@heroicons/react/outline'
 import type { NextPage } from 'next'
 // import { useRouter } from 'next/router'
 
@@ -18,7 +19,7 @@ const Test: NextPage = () => {
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
 
-  // const { query } = useRouter()
+  // const { query, push } = useRouter()
 
   useEffect(() => {
     // if (query.id === 'practice') {
@@ -52,6 +53,7 @@ const Test: NextPage = () => {
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop()
     setCapturing(false)
+    // push('/result')
   }, [recordedChunks, setCapturing, mediaRecorderRef])
 
   const handleDownload = useCallback(() => {
@@ -83,18 +85,21 @@ const Test: NextPage = () => {
     <Layout left="icon" right={['profile']}>
       <div className="p-3 bg-gray-100">
         <div className="rounded-xl max-w-5xl container mx-auto overflow-hidden shadow-lg bg-gray-50 p-10">
-          <div className="">
-            {capturing ? (
-              <div>
-                <p>{currentQuestion.question}</p>
-              </div>
-            ) : (
-              <p className="font-md">開始するを押すと、面接が始まります</p>
-            )}
-          </div>
-          <Webcam audio={true} ref={webcamRef} className="w-full" />
           {capturing ? (
-            <>
+            <div className="flex">
+              <UserIcon className="w-12 h-12" />
+              <p className="rounded-md w-full bg-blue-100 text-xl flex items-center justify-center">
+                {currentQuestion.question}
+              </p>
+            </div>
+          ) : (
+            <p className="rounded-md w-full bg-blue-100 text-xl flex items-center justify-center h-12">
+              「開始する」を押すと、面接が始まります
+            </p>
+          )}
+          <Webcam audio={true} ref={webcamRef} className="w-full my-3" />
+          {capturing ? (
+            <div className="flex space-between">
               {questionId < interviewQuestions.length - 1 && (
                   <Button
                     variant="solid-blue"
@@ -107,11 +112,11 @@ const Test: NextPage = () => {
               <Button
                 variant="solid-red"
                 onClick={handleStopCaptureClick}
-                className="px-4 h-10"
+                className="px-4 h-10 ml-auto"
               >
                 面接を終了する
               </Button>
-            </>
+            </div>
           ) : (
             <Button
               variant="solid-blue"
