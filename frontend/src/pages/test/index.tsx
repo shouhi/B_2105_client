@@ -92,7 +92,7 @@ const Test: NextPage = () => {
               <p className="font-md">開始するを押すと、面接が始まります</p>
             )}
           </div>
-          <Webcam audio={false} ref={webcamRef} className="w-full" />
+          <Webcam audio={true} ref={webcamRef} className="w-full" />
           {capturing ? (
             <>
               {questionId < interviewQuestions.length - 1 && (
