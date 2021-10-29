@@ -70,27 +70,36 @@ const Test: NextPage = () => {
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop()
     setCapturing(false)
-    // push('/result')
   }, [recordedChunks, setCapturing, mediaRecorderRef])
 
   const handleDownload = useCallback(() => {
+    const interviewId = "6QgXzpKQlixQHrSYpH87"
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
-        type: 'video/webm',
+        type: 'video/mp4',
       })
-      const url = URL.createObjectURL(blob)
+      // blob to file
+      const file = new File([blob], 'video.mp4', {
+        type: 'video/mp4'
+      })
+
+      const formData = new FormData()
+      formData.append('interview_id', interviewId)
+      formData.append('file', file)
+
       getIdToken.then((idToken) => {
         const axiosBase = axios.create({
           baseURL: 'https://jphacks-server-ydpiyrw4ja-dt.a.run.app',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': idToken,
+            'Authorization': `Bearer ${idToken}`,
             'X-Requested-With': 'XMLHttpRequest',
           }
         })
-        const interviewId = "6QgXzpKQlixQHrSYpH87"
-        axiosBase.post('/upload_movie', {interview_id: interviewId, file: url}).then((res) => {
-          console.log(res)
+        axiosBase.post('/upload_movie', formData).then((res) => {
+          if (res.status === 201) {
+            // push('/result')
+          }
         })
       })
       setRecordedChunks([])
