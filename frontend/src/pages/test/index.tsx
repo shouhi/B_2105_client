@@ -1,7 +1,7 @@
 import { ClockIcon, UserIcon } from '@heroicons/react/outline'
+import axios from 'axios'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 
 import { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import Webcam from 'react-webcam'
@@ -29,11 +29,12 @@ const Test: NextPage = () => {
   useEffect(() => {
     if (query.id === 'practice') {
       const randomNumber = Math.floor(Math.random() * questions.length)
-      console.log(randomNumber)
       setInterviewQuestions([questions[randomNumber]])
       return
     }
-    setInterviewQuestions(questions)
+    const randomNumbers = Array.from({ length: 3 }, () => Math.floor(Math.random() * questions.length))
+    const randomQuestions = randomNumbers.map((number) => questions[number])
+    setInterviewQuestions(randomQuestions)
   }, [questions])
 
   const handleDataAvailable = useCallback(
