@@ -39,6 +39,11 @@ const Test: NextPage = () => {
       setInterviewQuestions([questions[randomNumber]])
       return
     }
+    let videoList = Array.from(document.getElementsByTagName("video"));
+    videoList.forEach(video =>{
+      video.muted = true
+    })
+
     const randomQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 3)
     setInterviewQuestions(randomQuestions)
   }, [questions])
