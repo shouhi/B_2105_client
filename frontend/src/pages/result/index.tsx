@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+
 // import { useRouter } from 'next/router'
 // import { useContext } from 'react'
 
@@ -13,14 +14,25 @@ import {
 
 // import { AuthContext } from '../../components/auth/AuthProvider'
 import { Layout } from '../../components/shared/Layout'
+// import { getResultMeotions } from '../api/firestore'
 
-const radardata = [
-  { feel: 'anger', A: 120, B: 110, fullMark: 150 }, //A = 自分   B = 平均
-  { feel: 'surprise', A: 98, B: 130, fullMark: 150 },
-  { feel: 'disgust', A: 86, B: 130, fullMark: 150 },
-  { feel: 'sadness', A: 99, B: 100, fullMark: 150 },
-  { feel: 'contempt', A: 85, B: 90, fullMark: 150 },
-  { feel: 'fear', A: 65, B: 85, fullMark: 150 },
+const result_emotions = [
+  { feel: 'anger', A: 0, B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
+  { feel: 'surprise', A: 0.6083136194660358, B: 0.5, fullMark: 1 },
+  { feel: 'disgust', A: 0, B: 0.5, fullMark: 1 },
+  { feel: 'sadness', A: 0.13518080432578575, B: 0.5, fullMark: 1 },
+  { feel: 'contempt', A: 0.1689760054072322, B: 0.5, fullMark: 1 },
+  { feel: 'fear', A: 0, B: 0.5, fullMark: 1 },
+  { feel: 'happiness', A: 0.908752957080095, B: 0.5, fullMark: 1 },
+]
+
+const result_impressions = [
+  { feel: 'anxious', A: -32.762314032014345, B: 0.5, fullMark: 100 }, //A = 自分   B = 平均
+  { feel: 'confidence', A: 0.6083136194660358, B: 0.5, fullMark: 100 },
+  { feel: 'honest', A: 35.90665310328858, B: 0.5, fullMark: 100 },
+  { feel: 'leadership', A: 33.35709336192617, B: 0.5, fullMark: 100 },
+  { feel: 'nervous', A: -26.578883152181138, B: 0.5, fullMark: 100 },
+  { feel: 'feaniceCoworkerr', A: 34.52420441911433, B: 0.5, fullMark: 100 },
 ]
 
 const Result: NextPage = () => {
@@ -30,23 +42,60 @@ const Result: NextPage = () => {
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-5 bg-gray-100">
-        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50  my-5 inline-block">
-          <div className="px-6 pt-4">
+        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
+          <div className="px-14 pt-4">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
               #表情認識
             </span>
             <RadarChart
-              cx={300} // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
-              cy={300} // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
+              cx={310} // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
+              cy={310} // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
               outerRadius={250}
-              width={600}
-              height={600}
-              data={radardata}
+              width={620}
+              height={620}
+              data={result_emotions}
             >
               <PolarGrid />
               <PolarAngleAxis dataKey="feel" />
 
-              <PolarRadiusAxis angle={30} domain={[0, 150]} />
+              <PolarRadiusAxis angle={50} domain={[0, 1]} />
+              <Radar
+                name="あなた"
+                dataKey="A"
+                stroke="#8884d8" // レーダーの外枠の色
+                fill="#8884d8" // レーダー内の色
+                fillOpacity={0.5} // レーダー内の色の濃さ(1にすると濃さMAX)
+              />
+              <Radar
+                name="全国の平均"
+                dataKey="B"
+                stroke="#82ca9d"
+                fill="#82ca9d"
+                fillOpacity={0.5}
+              />
+
+              {/* グラフの下のAさんBさんの表記 */}
+              <Legend />
+            </RadarChart>
+          </div>
+        </div>
+        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
+          <div className="px-14 pt-4">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
+              #印象認識
+            </span>
+            <RadarChart
+              cx={310} // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
+              cy={310} // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
+              outerRadius={250}
+              width={620}
+              height={620}
+              data={result_impressions}
+            >
+              <PolarGrid />
+              <PolarAngleAxis dataKey="feel" />
+
+              <PolarRadiusAxis angle={50} domain={[0, 1]} />
               <Radar
                 name="あなた"
                 dataKey="A"
