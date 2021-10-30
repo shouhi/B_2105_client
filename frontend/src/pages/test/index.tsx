@@ -39,7 +39,7 @@ const Test: NextPage = () => {
       setInterviewQuestions([questions[randomNumber]])
       return
     }
-    let videoList = Array.from(document.getElementsByTagName("video"));
+    const videoList = Array.from(document.getElementsByTagName("video"));
     videoList.forEach(video =>{
       video.muted = true
     })
