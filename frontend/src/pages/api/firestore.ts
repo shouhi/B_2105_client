@@ -87,13 +87,12 @@ export const getAllInterviewId = () => {
   })
 }
 
-export const getResultMeotions = () => {
-  const db = firebase.firestore()
-  db.collection(`user/xmkjt589JgTbhbOUlVCvvLh6ILO2/interview`)
-    .doc('X7VvOEU9JxKbU7cLDBfw')
-    .get()
-    .then(Emotions: data => {
-      console.log(data.ref.)
-    })
-}
-
+// export const getResultMeotions = () => {
+//   const db = firebase.firestore()
+//   db.collection(`user/xmkjt589JgTbhbOUlVCvvLh6ILO2/interview`)
+//     .doc('X7VvOEU9JxKbU7cLDBfw')
+//     .get()
+//     .then(Emotions: data => {
+//       console.log(data.ref.)
+//     })
+// }

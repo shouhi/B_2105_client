@@ -28,7 +28,7 @@ const Test: NextPage = () => {
   const [interviewId, setInterviewId] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
 
-  const { query } = useRouter()
+  const { query, push } = useRouter()
   const { currentUser } = useContext(AuthContext)
   const { questions } = useContext(QuestionsContext)
   const getIdToken = currentUser?.getIdToken()
@@ -111,7 +111,7 @@ const Test: NextPage = () => {
             setModalOpen(true)
             setTimeout(() => {
               setModalOpen(false)
-              // push('/result')
+              push('/result')
             } , 5000)
           }
         })
