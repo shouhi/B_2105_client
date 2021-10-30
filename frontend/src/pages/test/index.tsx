@@ -11,7 +11,7 @@ import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 import { QuestionType } from '../../types/types'
 import { initialInterview } from '../../utils/interview'
-import { addInterview, getInterviewId } from '../api/firestore'
+import { addInterview } from '../api/firestore'
 
 
 const Test: NextPage = () => {
@@ -23,6 +23,7 @@ const Test: NextPage = () => {
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
+  const [interviewId, setInterviewId] = useState('')
 
   const { query } = useRouter()
   const { currentUser } = useContext(AuthContext)
@@ -59,9 +60,10 @@ const Test: NextPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const handleStartCaptureClick = useCallback(() => {
+  const handleStartCaptureClick = useCallback(async () => {
     setCapturing(true)
-    addInterview(initialInterview)
+    const id = await addInterview(initialInterview)
+    setInterviewId(id)
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     })
@@ -87,8 +89,6 @@ const Test: NextPage = () => {
       const file = new File([blob], 'video.mp4', {
         type: 'video/mp4'
       })
-
-      const { interviewId } = await getInterviewId()
 
       const formData = new FormData()
       formData.append('interview_id', interviewId)

@@ -3,18 +3,24 @@ import firebase from 'firebase/compat/app'
 require('firebase/firestore')
 
 export type Face = {
-  anger: number
-  anxios: number
-  confidence: number
-  contempt: number
-  disgust: number
-  fear: number
-  happiness: number
-  honest: number
-  leadership: number
-  narvous: number
-  sadness: number
-  surprise: number
+  movie_id: string
+  result_emotions: {
+    anger: number
+    contempt: number
+    disgust: number
+    fear: number
+    happiness: number
+    sadness: number
+    surprise: number
+  }
+  result_impressions: {
+    anxious: number
+    confidence: number
+    honest: number
+    leadership: number
+    nervous: number
+    niceCoworker: number
+  }
 }
 
 export const signOut = () => {
@@ -27,10 +33,10 @@ export const addInterview = (face: Face) => {
   if (!user) {
     return
   }
-  db.collection(`user/${user.uid}/interview`)
+  return db.collection(`user/${user.uid}/interview`)
     .add(face)
     .then(docRef => {
-      console.warn(docRef)
+      return docRef.id
     })
     .catch(error => {
       console.error('Error adding document: ', error)
