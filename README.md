@@ -12,9 +12,10 @@ https://youtu.be/iM4eFFg3s1M
 ### 製品説明（具体的な製品の説明）
 #### リモート面接のアップデートを図るwebアプリケーションです。Github/Googleアカウントよりアカウントを作っていただき、「模擬面接モード」「練習モード」
 ### 特長
-####1. FaceAPIによる感情データ分析
-####2. 重回帰分析を用いた独自で開発した印象分析モデル
-####3. それらの数値をGraph.jsによりグラフ化
+
+#### 1. FaceAPIによる感情データ分析
+#### 2. 重回帰分析を用いた独自で開発した印象分析モデル
+#### 3. それらの数値をGraph.jsによりグラフ化
 
 ### 今後の展望
 * 学生エンジニアの7割がこのwebサービスを通して練習する
@@ -42,4 +43,5 @@ https://youtu.be/iM4eFFg3s1M
 ### 独自技術
 #### 印象予測機能
 * Face API を活用して画像から感情のデータを獲得した。そして、’誠実’、’リダーシップ’と言ったアンケートからの印象データを目的変数とし、重回帰分析を行うことで、感情データから印象を予測できるモデルを作成した。
-* <img width="624" alt="Screen Shot 2021-10-30 at 10 16 11" src="https://user-images.githubusercontent.com/78252529/139518017-a41bea5f-1b22-47fc-a2d4-603ece78ffe6.png">
+
+<img width="624" alt="Screen Shot 2021-10-30 at 10 16 11" src="https://user-images.githubusercontent.com/78252529/139518017-a41bea5f-1b22-47fc-a2d4-603ece78ffe6.png">
