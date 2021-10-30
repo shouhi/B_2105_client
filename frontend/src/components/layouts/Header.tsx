@@ -153,7 +153,7 @@ const Left = memo<Pick<HeaderProps, 'left'>>(props => {
     return (
       <Link href="/dashboard">
         <Image
-          src="/icon.png"
+          src="/tayzer.png"
           width={100}
           height={80}
           className="cursor-pointer"

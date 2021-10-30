@@ -52,7 +52,8 @@ export const addInterview = (face: Face) => {
   if (!user) {
     return
   }
-  return db.collection(`user/${user.uid}/interview`)
+  return db
+    .collection(`user/${user.uid}/interview`)
     .add(face)
     .then(docRef => {
       return docRef.id
@@ -69,10 +70,13 @@ export const getInterviewId = () => {
   if (!user) {
     return
   }
-  return db.collection(`user/${user.uid}/interview`).get().then(snapshot => {
-    const interviewId = snapshot.docs[snapshot.docs.length - 1].id
-    return { interviewId }
-  })
+  return db
+    .collection(`user/${user.uid}/interview`)
+    .get()
+    .then(snapshot => {
+      const interviewId = snapshot.docs[snapshot.docs.length - 1].id
+      return { interviewId }
+    })
 }
 
 export const getAllInterviewId = () => {
@@ -81,18 +85,20 @@ export const getAllInterviewId = () => {
   if (!user) {
     return
   }
-  return db.collection(`user/${user.uid}/interview`).get().then(snapshot => {
-    const interviewId = snapshot.docs.map(doc => doc.id)
-    return { interviewId }
-  })
+  return db
+    .collection(`user/${user.uid}/interview`)
+    .get()
+    .then(snapshot => {
+      const interviewId = snapshot.docs.map(doc => doc.id)
+      return { interviewId }
+    })
 }
 
-// export const getResultMeotions = () => {
-//   const db = firebase.firestore()
-//   db.collection(`user/xmkjt589JgTbhbOUlVCvvLh6ILO2/interview`)
-//     .doc('X7VvOEU9JxKbU7cLDBfw')
-//     .get()
-//     .then(Emotions: data => {
-//       console.log(data.ref.)
-//     })
-// }
+export const getResultMeotions = () => {
+  const db = firebase.firestore()
+
+  return db
+    .collection(`user/xmkjt589JgTbhbOUlVCvvLh6ILO2/interview`)
+    .doc('X7VvOEU9JxKbU7cLDBfw')
+    .get()
+}

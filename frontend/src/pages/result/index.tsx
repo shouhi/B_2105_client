@@ -19,10 +19,10 @@ import { Layout } from '../../components/shared/Layout'
 const result_emotions = [
   { feel: 'anger', A: 0, B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
   { feel: 'surprise', A: 0.6083136194660358, B: 0.5, fullMark: 1 },
-  { feel: 'disgust', A: 0, B: 0.5, fullMark: 1 },
-  { feel: 'sadness', A: 0.13518080432578575, B: 0.5, fullMark: 1 },
-  { feel: 'contempt', A: 0.1689760054072322, B: 0.5, fullMark: 1 },
-  { feel: 'fear', A: 0, B: 0.5, fullMark: 1 },
+  { feel: 'disgust', A: 0.472974367823748, B: 0.5, fullMark: 1 },
+  { feel: 'sadness', A: 0.63518080432578575, B: 0.5, fullMark: 1 },
+  { feel: 'contempt', A: 0.2689760054072322, B: 0.5, fullMark: 1 },
+  { feel: 'fear', A: 0.4246487826268, B: 0.5, fullMark: 1 },
   { feel: 'happiness', A: 0.908752957080095, B: 0.5, fullMark: 1 },
 ]
 
@@ -42,7 +42,7 @@ const Result: NextPage = () => {
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-5 bg-gray-100">
-        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
+        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-10 my-5 py-10 inline-block">
           <div className="px-14 pt-4">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
               #表情認識
@@ -79,7 +79,7 @@ const Result: NextPage = () => {
             </RadarChart>
           </div>
         </div>
-        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
+        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-10 my-5 py-10 inline-block">
           <div className="px-14 pt-4">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
               #印象認識
