@@ -9,6 +9,8 @@ import Webcam from 'react-webcam'
 import { AuthContext, QuestionsContext } from '../../components/auth/AuthProvider'
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
+import { Loading } from '../../components/shared/Loading'
+import { Modal } from '../../components/shared/Modal'
 import { QuestionType } from '../../types/types'
 import { initialInterview } from '../../utils/interview'
 import { addInterview } from '../api/firestore'
@@ -24,6 +26,7 @@ const Test: NextPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
   const [interviewId, setInterviewId] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
 
   const { query } = useRouter()
   const { currentUser } = useContext(AuthContext)
@@ -105,7 +108,11 @@ const Test: NextPage = () => {
         })
         axiosBase.post('/upload_movie', formData).then((res) => {
           if (res.status === 201) {
-            // push('/result')
+            setModalOpen(true)
+            setTimeout(() => {
+              setModalOpen(false)
+              // push('/result')
+            } , 5000)
           }
         })
       })
@@ -178,6 +185,12 @@ const Test: NextPage = () => {
             >
               開始する
             </Button>
+          )}
+          {modalOpen && (
+            <Modal
+              title="解析しています。しばらくお待ち下さい。"
+              content={<Loading />}
+            />
           )}
         </div>
       </div>
