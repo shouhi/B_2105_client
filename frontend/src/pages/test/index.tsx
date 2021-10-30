@@ -43,7 +43,15 @@ const Test: NextPage = () => {
     videoList.forEach(video =>{
       video.muted = true
     })
-
+  const videoList = Array.from(document.getElementsByTagName("video"));
+    videoList.forEach(video =>{
+      video.muted = true
+    })
+    if (query.id === 'practice') {
+      const randomNumber = Math.floor(Math.random() * questions.length)
+      setInterviewQuestions([questions[randomNumber]])
+      return
+    }
     const randomQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 3)
     setInterviewQuestions(randomQuestions)
   }, [questions])
