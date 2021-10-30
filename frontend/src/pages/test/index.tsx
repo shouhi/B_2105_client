@@ -1,14 +1,20 @@
 import { ClockIcon, UserIcon } from '@heroicons/react/outline'
+import axios from 'axios'
 import type { NextPage } from 'next'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import Webcam from 'react-webcam'
 
+import { AuthContext, QuestionsContext } from '../../components/auth/AuthProvider'
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
-import { EXAMPLE_QUESTIONS } from '../../models/questions'
+import { Loading } from '../../components/shared/Loading'
+import { Modal } from '../../components/shared/Modal'
 import { QuestionType } from '../../types/types'
+import { initialInterview } from '../../utils/interview'
+import { addInterview } from '../api/firestore'
+
 
 const Test: NextPage = () => {
   const webcamRef = useRef(null)
@@ -19,16 +25,23 @@ const Test: NextPage = () => {
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
+  const [interviewId, setInterviewId] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
 
-  // const { query, push } = useRouter()
+  const { query, push } = useRouter()
+  const { currentUser } = useContext(AuthContext)
+  const { questions } = useContext(QuestionsContext)
+  const getIdToken = currentUser?.getIdToken()
 
   useEffect(() => {
-    // if (query.id === 'practice') {
-    //   const questions = shuffle(EXAMPLE_QUESTIONS)
-    //   setInterviewQuestions(questions)
-    // }
-    setInterviewQuestions(EXAMPLE_QUESTIONS)
-  }, [interviewQuestions])
+    if (query.id === 'practice') {
+      const randomNumber = Math.floor(Math.random() * questions.length)
+      setInterviewQuestions([questions[randomNumber]])
+      return
+    }
+    const randomQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 3)
+    setInterviewQuestions(randomQuestions)
+  }, [questions])
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -50,8 +63,10 @@ const Test: NextPage = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const handleStartCaptureClick = useCallback(() => {
+  const handleStartCaptureClick = useCallback(async () => {
     setCapturing(true)
+    const id = await addInterview(initialInterview)
+    setInterviewId(id)
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     })
@@ -66,17 +81,41 @@ const Test: NextPage = () => {
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop()
     setCapturing(false)
-    // push('/result')
   }, [recordedChunks, setCapturing, mediaRecorderRef])
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
-        type: 'video/webm',
+        type: 'video/mp4',
       })
-      const url = URL.createObjectURL(blob)
-      // TODO: connection with backend
-      window.open(url)
+      // blob to file
+      const file = new File([blob], 'video.mp4', {
+        type: 'video/mp4'
+      })
+
+      const formData = new FormData()
+      formData.append('interview_id', interviewId)
+      formData.append('file', file)
+
+      getIdToken.then((idToken) => {
+        const axiosBase = axios.create({
+          baseURL: 'https://jphacks-server-ydpiyrw4ja-dt.a.run.app',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`,
+            'X-Requested-With': 'XMLHttpRequest',
+          }
+        })
+        axiosBase.post('/upload_movie', formData).then((res) => {
+          if (res.status === 201) {
+            setModalOpen(true)
+            setTimeout(() => {
+              setModalOpen(false)
+              push('/result')
+            } , 5000)
+          }
+        })
+      })
       setRecordedChunks([])
     }
   }, [recordedChunks])
@@ -91,18 +130,22 @@ const Test: NextPage = () => {
   }
 
   useEffect(() => {
+    if (query.id === 'practice') {
+      setCurrentQuestion(interviewQuestions[0])
+      return
+    }
     setCurrentQuestion(interviewQuestions[questionId])
   }, [questionId, interviewQuestions, currentQuestion])
 
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-3 bg-gray-100">
-        <div className="rounded-xl max-w-5xl container mx-auto my-10 overflow-hidden shadow-lg bg-gray-50 p-10">
+        <div className="rounded-xl max-w-4xl container mx-auto my-10 overflow-hidden shadow-lg bg-gray-50 p-10">
           {capturing ? (
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
               <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
-                {currentQuestion.question}
+                {currentQuestion.text}
               </p>
               <div className="w-10 ml-3">
                 <ClockIcon className="w-10 h-10" />
@@ -142,6 +185,12 @@ const Test: NextPage = () => {
             >
               開始する
             </Button>
+          )}
+          {modalOpen && (
+            <Modal
+              title="解析しています。しばらくお待ち下さい。"
+              content={<Loading />}
+            />
           )}
         </div>
       </div>
