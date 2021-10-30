@@ -140,7 +140,7 @@ const Test: NextPage = () => {
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-3 bg-gray-100">
-        <div className="rounded-xl max-w-5xl container mx-auto my-10 overflow-hidden shadow-lg bg-gray-50 p-10">
+        <div className="rounded-xl max-w-4xl container mx-auto my-10 overflow-hidden shadow-lg bg-gray-50 p-10">
           {capturing ? (
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
