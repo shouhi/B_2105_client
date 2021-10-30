@@ -10,6 +10,9 @@ import { AuthContext, QuestionsContext } from '../../components/auth/AuthProvide
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 import { QuestionType } from '../../types/types'
+import { initialInterview } from '../../utils/interview'
+import { addInterview, getInterviewId } from '../api/firestore'
+
 
 const Test: NextPage = () => {
   const webcamRef = useRef(null)
@@ -58,6 +61,7 @@ const Test: NextPage = () => {
 
   const handleStartCaptureClick = useCallback(() => {
     setCapturing(true)
+    addInterview(initialInterview)
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     })
@@ -74,8 +78,7 @@ const Test: NextPage = () => {
     setCapturing(false)
   }, [recordedChunks, setCapturing, mediaRecorderRef])
 
-  const handleDownload = useCallback(() => {
-    const interviewId = "6QgXzpKQlixQHrSYpH87"
+  const handleDownload = useCallback(async () => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: 'video/mp4',
@@ -84,6 +87,8 @@ const Test: NextPage = () => {
       const file = new File([blob], 'video.mp4', {
         type: 'video/mp4'
       })
+
+      const { interviewId } = await getInterviewId()
 
       const formData = new FormData()
       formData.append('interview_id', interviewId)
