@@ -34,16 +34,7 @@ const Test: NextPage = () => {
   const getIdToken = currentUser?.getIdToken()
 
   useEffect(() => {
-    if (query.id === 'practice') {
-      const randomNumber = Math.floor(Math.random() * questions.length)
-      setInterviewQuestions([questions[randomNumber]])
-      return
-    }
     const videoList = Array.from(document.getElementsByTagName("video"));
-    videoList.forEach(video =>{
-      video.muted = true
-    })
-  const videoList = Array.from(document.getElementsByTagName("video"));
     videoList.forEach(video =>{
       video.muted = true
     })
