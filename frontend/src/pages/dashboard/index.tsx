@@ -23,11 +23,11 @@ const Dashboard: NextPage = () => {
 
   return (
     <Layout left="icon" right={['profile']}>
-      <div className="p-10 bg-gray-100">
-        <div className="max-w-5xl mx-auto">
+      <div className="p-4 bg-gray-100">
+        <div className="mx-auto max-w-7xl grid grid-cols-3 gap-4">
           {/* UserInfo */}
-          <div className="rounded-xl max-w-5xl overflow-hidden shadow-lg bg-gray-50 py-5 my-5">
-            <div className="px-6 py-4">
+          <section className="rounded-xl overflow-hidden my-10">
+            <div className="px-6 pb-4">
               <div className="font-bold text-2xl mb-2">
                 🦔 Hello ! {currentUser?.displayName} さん
               </div>
@@ -46,11 +46,11 @@ const Dashboard: NextPage = () => {
                 #機械学習
               </span>
             </div>
-          </div>
+          </section>
           {/* NewInterview */}
-          <div className="my-10">
+          <section className="my-10 col-span-2">
             <p className="font-bold text-xl pl-2 mb-2">新規面接</p>
-            <div className="rounded-xl max-w-5xl overflow-hidden shadow-lg bg-gray-50 py-5 flex justify-center">
+            <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-5 flex justify-center">
               <div className="m-8">
                 <p className="font-bold text-lg mb-5">面接モード選択</p>
                 <div className="flex space-x-16">
@@ -59,7 +59,7 @@ const Dashboard: NextPage = () => {
                       <div
                         className="
                           rounded-md shadow-lg cursor-pointer flex items-center justify-center
-                          w-80 h-80 bg-blue-500 text-gray-50 font-bold text-lg
+                          w-48 h-24 bg-blue-500 text-gray-50 font-bold text-lg
                           hover:bg-opacity-50 transition ease-in-out duration-300
                         "
                         onClick={() => handleClickStartInterview(mode)}
@@ -71,7 +71,24 @@ const Dashboard: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+          {/* InterviewedList */}
+          <section className="col-span-4 mt-5 mb-10">
+            <p className="font-bold text-xl pl-2 mb-2">過去の面接一覧</p>
+            <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-5 flex justify-center">
+              <div className="grid grid-cols-3 gap-4">
+                {Array(6).fill(0).map((_, index) => (
+                  <div key={index} className="">
+                    <div className="w-80 h-64 bg-gray-400" />
+                    <div className="px-2">
+                      <p>作成日: 2021年11月14日</p>
+                      <p>モード: 練習</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </Layout>
