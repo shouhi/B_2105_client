@@ -153,14 +153,15 @@ const Left = memo<Pick<HeaderProps, 'left'>>(props => {
     return (
       <>
         <Link href="/dashboard">
-          <Image
-            src="/tayzer.png"
-            width={50}
-            height={50}
-            className="cursor-pointer"
-          />
+          <div className="flex items-center cursor-pointer">
+            <Image
+              src="/tayzer.png"
+              width={50}
+              height={50}
+            />
+            <p className="pl-3 font-bold font-sans text-2xl">Tech.面接</p>
+          </div>
         </Link>
-        <span className="pl-3 font-bold font-sans text-2xl">Tech.面接</span>
       </>
     )
   }
