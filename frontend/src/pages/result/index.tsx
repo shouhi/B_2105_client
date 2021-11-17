@@ -12,6 +12,8 @@ import {
   PolarRadiusAxis,
 } from 'recharts'
 
+import { Button } from '../../components/shared/Button'
+
 // import { AuthContext } from '../../components/auth/AuthProvider'
 import { Layout } from '../../components/shared/Layout'
 // import { getResultMeotions } from '../api/firestore'
@@ -41,19 +43,20 @@ const Result: NextPage = () => {
   // const { currentUser } = useContext(AuthContext)
   return (
     <Layout left="icon" right={['profile']}>
-      <div className="p-5 bg-gray-100">
-        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
-          <div className="px-14 pt-4">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
+      <div className="p-5 bg-gray-100 grid grid-cols-4 gap-4">
+        <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-10 inline-block col-span-2 grid-cols-2">
+          <div className="px-6 pt-4">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700">
               #表情認識
             </span>
             <RadarChart
               cx={310} // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
               cy={310} // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
-              outerRadius={250}
-              width={620}
-              height={620}
+              outerRadius={240}
+              width={600}
+              height={600}
               data={result_emotions}
+              className="mx-auto"
             >
               <PolarGrid />
               <PolarAngleAxis dataKey="feel" />
@@ -79,18 +82,19 @@ const Result: NextPage = () => {
             </RadarChart>
           </div>
         </div>
-        <div className="rounded-xl max-w-3xl overflow-hidden shadow-lg bg-gray-50 mx-20 my-10 py-10 inline-block">
-          <div className="px-14 pt-4">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
+        <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-10 inline-block col-span-2">
+          <div className="px-6 pt-4">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700">
               #印象認識
             </span>
             <RadarChart
               cx={310} // 要素の左端とチャートの中心点との距離(0にするとチャートの左半分が隠れる)
               cy={310} // 要素の上部とチャートの中心点との距離(0にするとチャートの上半分が隠れる)
-              outerRadius={250}
-              width={620}
-              height={620}
+              outerRadius={200}
+              width={600}
+              height={600}
               data={result_impressions}
+              className="mx-auto"
             >
               <PolarGrid />
               <PolarAngleAxis dataKey="feel" />
@@ -115,6 +119,11 @@ const Result: NextPage = () => {
               <Legend />
             </RadarChart>
           </div>
+        </div>
+        <div className="col-start-2 col-span-2">
+          <Button variant="solid-blue" linkProps={{href: '/dashboard'}} className="py-6">
+            ホームへ戻る
+          </Button>
         </div>
       </div>
     </Layout>
