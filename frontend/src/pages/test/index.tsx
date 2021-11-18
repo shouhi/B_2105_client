@@ -144,14 +144,14 @@ const Test: NextPage = () => {
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-3 bg-gray-100">
-        <div className="rounded-xl max-w-4xl container mx-auto my-10 overflow-hidden shadow-lg bg-gray-50 p-10">
+        <div className="max-w-4xl mx-auto my-10 overflow-hidden bg-gray-50 p-5">
           {capturing ? (
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
               <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
                 {currentQuestion.text}
               </p>
-              <div className="w-10 ml-3">
+              <div className="w-10 mx-2">
                 <ClockIcon className="w-10 h-10" />
                 <p>{interviewTime}</p>
               </div>

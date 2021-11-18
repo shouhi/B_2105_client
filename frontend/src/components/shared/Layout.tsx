@@ -12,8 +12,8 @@ export const Layout: VFC<Props> = props => {
   const { children, ...headerProps } = props
 
   return (
-    <div className="pb-20">
-      <div className="pt-4 pb-1 mx-auto">
+    <div>
+      <div className="mx-auto">
         <Header {...headerProps} />
       </div>
       <div className="flex w-screen">

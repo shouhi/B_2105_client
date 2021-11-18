@@ -151,14 +151,18 @@ const Left = memo<Pick<HeaderProps, 'left'>>(props => {
   }
   if (props.left === 'icon') {
     return (
-      <Link href="/dashboard">
-        <Image
-          src="/tayzer.png"
-          width={100}
-          height={80}
-          className="cursor-pointer"
-        />
-      </Link>
+      <>
+        <Link href="/dashboard">
+          <div className="flex items-center cursor-pointer">
+            <Image
+              src="/tayzer.png"
+              width={50}
+              height={50}
+            />
+            <p className="pl-3 font-bold font-sans text-2xl">Tech.面接</p>
+          </div>
+        </Link>
+      </>
     )
   }
   return props.left
@@ -203,7 +207,7 @@ Right.displayName = 'Right'
 
 export const Header = memo<HeaderProps>(props => {
   return (
-    <header className="flex justify-between items-center px-8 shadow-md">
+    <header className="flex justify-between items-center px-8 py-2 shadow-md">
       <Left left={props.left} />
 
       <div className="flex flex-1 justify-center px-2">
