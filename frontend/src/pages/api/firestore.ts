@@ -79,6 +79,20 @@ export const getInterviewId = () => {
     })
 }
 
+export const getInterviewResult = (id: string) => {
+  const db = firebase.firestore()
+  const InterviewRef = db.collection('interview').doc(id)
+  if (!InterviewRef) {
+    return
+  }
+  return InterviewRef.get().then(doc => {
+    if (doc.exists) {
+      return doc.data()
+    }
+    return
+  })
+}
+
 export const getAllInterviewId = () => {
   const user = firebase.auth().currentUser
   const db = firebase.firestore()
