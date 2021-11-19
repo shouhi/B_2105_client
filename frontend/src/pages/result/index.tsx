@@ -12,6 +12,7 @@ import {
   PolarRadiusAxis,
 } from 'recharts'
 
+import tailwindConfig from '../../../tailwind.config'
 import { Button } from '../../components/shared/Button'
 
 // import { AuthContext } from '../../components/auth/AuthProvider'
@@ -39,14 +40,15 @@ const result_impressions = [
 
 const Result: NextPage = () => {
   // const { push } = useRouter()
+  const colors = tailwindConfig.theme.extend.colors
 
   // const { currentUser } = useContext(AuthContext)
   return (
     <Layout left="icon" right={['profile']}>
-      <div className="p-5 bg-gray-100 grid grid-cols-4 gap-4">
-        <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-10 inline-block col-span-2 grid-cols-2">
+      <div className="p-5 grid grid-cols-4 gap-4 bg-result w-full">
+        <div className="overflow-hidden py-10 inline-block col-span-2 grid-cols-2">
           <div className="px-6 pt-4">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700">
+            <span className="inline-block px-3 py-1 text-xl font-semibold text-white">
               #表情認識
             </span>
             <RadarChart
@@ -59,22 +61,34 @@ const Result: NextPage = () => {
               className="mx-auto"
             >
               <PolarGrid />
-              <PolarAngleAxis dataKey="feel" />
+              <PolarAngleAxis dataKey="feel" stroke="#fff" />
 
               <PolarRadiusAxis angle={50} domain={[0, 1]} />
+              <defs>
+                <filter id="userData">
+                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.blue} />
+                </filter>
+              </defs>
               <Radar
                 name="あなた"
                 dataKey="A"
-                stroke="#8884d8" // レーダーの外枠の色
-                fill="#8884d8" // レーダー内の色
-                fillOpacity={0.5} // レーダー内の色の濃さ(1にすると濃さMAX)
+                stroke={colors.neon.purple} // レーダーの外枠の色
+                fill={colors.neon.purple}
+                filter="url(#userData)" // レーダー内の色
+                fillOpacity={0.4} // レーダー内の色の濃さ(1にすると濃さMAX)
               />
+              <defs>
+                <filter id="nationalData">
+                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.green} />
+                </filter>
+              </defs>
               <Radar
                 name="全国の平均"
                 dataKey="B"
-                stroke="#82ca9d"
-                fill="#82ca9d"
-                fillOpacity={0.5}
+                stroke={colors.neon.green}
+                fill={colors.neon.lightGreen}
+                filter='url(#nationalData)'
+                fillOpacity={0.4}
               />
 
               {/* グラフの下のAさんBさんの表記 */}
@@ -82,9 +96,9 @@ const Result: NextPage = () => {
             </RadarChart>
           </div>
         </div>
-        <div className="rounded-xl overflow-hidden shadow-lg bg-gray-50 py-10 inline-block col-span-2">
+        <div className="overflow-hidden py-10 inline-block col-span-2">
           <div className="px-6 pt-4">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700">
+            <span className="inline-block px-3 py-1 text-xl font-semibold text-gray-50">
               #印象認識
             </span>
             <RadarChart
@@ -97,22 +111,34 @@ const Result: NextPage = () => {
               className="mx-auto"
             >
               <PolarGrid />
-              <PolarAngleAxis dataKey="feel" />
+              <PolarAngleAxis dataKey="feel" stroke="#fff" />
 
               <PolarRadiusAxis angle={50} domain={[0, 1]} />
+              <defs>
+                <filter id="userData">
+                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.blue} />
+                </filter>
+              </defs>
               <Radar
                 name="あなた"
                 dataKey="A"
-                stroke="#8884d8" // レーダーの外枠の色
-                fill="#8884d8" // レーダー内の色
-                fillOpacity={0.5} // レーダー内の色の濃さ(1にすると濃さMAX)
+                stroke={colors.neon.purple} // レーダーの外枠の色
+                fill={colors.neon.purple}
+                filter="url(#userData)" // レーダー内の色
+                fillOpacity={0.4} // レーダー内の色の濃さ(1にすると濃さMAX)
               />
+              <defs>
+                <filter id="nationalData">
+                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.green} />
+                </filter>
+              </defs>
               <Radar
                 name="全国の平均"
                 dataKey="B"
-                stroke="#82ca9d"
-                fill="#82ca9d"
-                fillOpacity={0.5}
+                stroke={colors.neon.green}
+                fill={colors.neon.lightGreen}
+                filter='url(#nationalData)'
+                fillOpacity={0.4}
               />
 
               {/* グラフの下のAさんBさんの表記 */}
@@ -120,8 +146,8 @@ const Result: NextPage = () => {
             </RadarChart>
           </div>
         </div>
-        <div className="col-start-2 col-span-2">
-          <Button variant="solid-blue" linkProps={{href: '/dashboard'}} className="py-6">
+        <div className="col-start-2 col-span-2 my-6">
+          <Button variant="solid-blue" linkProps={{href: '/dashboard'}} className="py-4">
             ホームへ戻る
           </Button>
         </div>
