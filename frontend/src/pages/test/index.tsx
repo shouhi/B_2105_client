@@ -15,8 +15,7 @@ import { Layout } from '../../components/shared/Layout'
 import { Loading } from '../../components/shared/Loading'
 import { Modal } from '../../components/shared/Modal'
 import { QuestionType } from '../../types/types'
-import { initialInterview } from '../../utils/interview'
-import { addInterview, getInterviewResult } from '../api/firestore'
+import { getInterviewResult } from '../api/firestore'
 
 const Test: NextPage = () => {
   const webcamRef = useRef(null)
@@ -29,7 +28,6 @@ const Test: NextPage = () => {
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
-  const [interviewId, setInterviewId] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
 
   const { query, push } = useRouter()
@@ -77,8 +75,6 @@ const Test: NextPage = () => {
 
   const handleStartCaptureClick = useCallback(async () => {
     setCapturing(true)
-    const id = await addInterview(initialInterview)
-    setInterviewId(id)
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     })
@@ -106,7 +102,6 @@ const Test: NextPage = () => {
       })
 
       const formData = new FormData()
-      formData.append('interview_id', interviewId)
       formData.append('file', file)
 
       getIdToken.then(idToken => {
