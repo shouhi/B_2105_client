@@ -16,7 +16,7 @@ export const Layout: VFC<Props> = props => {
       <div className="mx-auto">
         <Header {...headerProps} />
       </div>
-      <div className="flex w-screen">
+      <div className="flex">
         <main className="w-full bg-gray-50">{children}</main>
       </div>
       <footer>
