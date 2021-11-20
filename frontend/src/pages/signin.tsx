@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
@@ -29,13 +28,14 @@ const Signin: NextPage = () => {
       <div className="w-full flex flex-wrap">
         {/* 左側 */}
         <div className="w-full md:w-1/2 flex flex-col bg-tazer-blue">
-          <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-          </div>
+          <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32" />
         </div>
         {/* 右側 */}
         <div className="w-full md:w-1/2 flex flex-col bg-light-blue">
           <div className="flex flex-col  my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-            <p className="text-center text-3xl font-bold mt-28 text-tazer-blue">Welcome back!</p>
+            <p className="text-center text-3xl font-bold mt-28 text-tazer-blue">
+              Welcome back!
+            </p>
             <Image src="/tayzer.png" width={200} height={250} />
             <Button
               variant="solid-black"

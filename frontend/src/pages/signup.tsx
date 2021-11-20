@@ -19,8 +19,7 @@ const Signup: NextPage = () => {
   }, [])
 
   const handleOnClick = async provider => {
-    const res = await socialMediaAuth(provider)
-    console.log(res)
+    await socialMediaAuth(provider)
   }
 
   return (

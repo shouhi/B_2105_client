@@ -60,6 +60,7 @@ const Result: NextPage = () => {
     { feel: 'anger', A: 0, B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
     { feel: 'surprise', A: 0.6083136194660358, B: 0.5, fullMark: 1 },
     { feel: 'disgust', A: 0.472974367823748, B: 0.5, fullMark: 1 },
+    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
     { feel: 'sadness', A: 0.63518080432578575, B: 0.5, fullMark: 1 },
     { feel: 'contempt', A: 0.2689760054072322, B: 0.5, fullMark: 1 },
     { feel: 'fear', A: 0.4246487826268, B: 0.5, fullMark: 1 },

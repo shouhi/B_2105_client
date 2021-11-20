@@ -156,7 +156,7 @@ const Test: NextPage = () => {
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
               <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
-                {currentQuestion.text}
+                {currentQuestion.question}
               </p>
               <div className="w-10 mx-2">
                 <ClockIcon className="w-10 h-10" />

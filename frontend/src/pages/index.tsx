@@ -2,11 +2,6 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { GithubIcon } from '../components/icon/GithubIcon'
-import { Button } from '../components/shared/Button'
-
-import { addInterview } from './api/firestore'
-
 const Home: NextPage = () => {
   return (
     <div className="w-screen h-screen bg-white font-family-karla">
@@ -29,31 +24,6 @@ const Home: NextPage = () => {
                     <a className="text-blue-400">こちら</a>
                   </Link>
                 </p>
-                <Button
-                  variant="solid-black"
-                  className="py-4 w-72 sm:w-80 mt-7"
-                  onClick={() => {
-                    addInterview({
-                      anger: 0,
-                      anxios: 0,
-                      confidence: 0,
-                      contempt: 0,
-                      disgust: 0,
-                      fear: 0,
-                      happiness: 0,
-                      honest: 0,
-                      leadership: 0,
-                      narvous: 0,
-                      sadness: 0,
-                      surprise: 0,
-                    })
-                  }}
-                >
-                  <div className="flex">
-                    <GithubIcon iconColor="white" className="mr-3" />
-                    <span>Add Firestore</span>
-                  </div>
-                </Button>
               </div>
             </div>
             <Image src="/mock/mockup.png" width={500} height={400} />
