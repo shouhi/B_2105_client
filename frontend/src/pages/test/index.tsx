@@ -117,13 +117,16 @@ const Test: NextPage = () => {
           if (res.status === 201) {
             const result = await getInterviewResult(res.data['interview_id'])
             setModalOpen(true)
-            if (result !== null) {
+            setTimeout(() => {
+              if (result !== null) {
+                setModalOpen(false)
+                push({
+                  pathname: '/result',
+                  query: { id: res.data['interview_id'] },
+                })
+              }
               setModalOpen(false)
-              push({
-                pathname: '/result',
-                query: { id: res.data['interview_id'] },
-              })
-            }
+            }, 5000)
           }
         })
       })
@@ -156,7 +159,7 @@ const Test: NextPage = () => {
             <div className="flex items-center">
               <UserIcon className="w-12 h-12" />
               <p className="rounded-md w-full h-12 bg-blue-100 text-xl flex items-center justify-center">
-                {currentQuestion.question}
+                {currentQuestion.text}
               </p>
               <div className="w-10 mx-2">
                 <ClockIcon className="w-10 h-10" />
