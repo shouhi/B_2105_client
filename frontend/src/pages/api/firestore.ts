@@ -60,19 +60,20 @@ export const getInterviewResult = id => {
   })
 }
 
-export const getMyInterviewResult = id => {
-  const db = firebase.firestore()
-  const InterviewRef = db.collection('interview').doc(id)
-  if (!InterviewRef) {
-    return
-  }
-  return InterviewRef.get().then(doc => {
-    if (doc.exists) {
-      return doc.data()
-    }
-    return
-  })
-}
+// export const getMyInterviewResult = id => {
+//   const db = firebase.firestore()
+//   const user = firebase.auth().currentUser
+//   const InterviewRef = db.collection('interview').where('user_id' == user.id)
+//   if (!InterviewRef) {
+//     return
+//   }
+//   return InterviewRef.get().then(doc => {
+//     if (doc.exists) {
+//       return doc.data()
+//     }
+//     return
+//   })
+// }
 
 export const getAllInterviewId = () => {
   const user = firebase.auth().currentUser
