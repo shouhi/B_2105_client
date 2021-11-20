@@ -46,37 +46,32 @@ export const signOut = () => {
   firebase.auth().signOut()
 }
 
-export const addInterview = (face: Face) => {
-  const user = firebase.auth().currentUser
+export const getInterviewResult = id => {
   const db = firebase.firestore()
-  if (!user) {
+  const InterviewRef = db.collection('interview').doc(id)
+  if (!InterviewRef) {
     return
   }
-  return db
-    .collection(`user/${user.uid}/interview`)
-    .add(face)
-    .then(docRef => {
-      return docRef.id
-    })
-    .catch(error => {
-      console.error('Error adding document: ', error)
-      return null
-    })
+  return InterviewRef.get().then(doc => {
+    if (doc.exists) {
+      return doc.data()
+    }
+    return
+  })
 }
 
-export const getInterviewId = () => {
-  const user = firebase.auth().currentUser
+export const getMyInterviewResult = id => {
   const db = firebase.firestore()
-  if (!user) {
+  const InterviewRef = db.collection('interview').doc(id)
+  if (!InterviewRef) {
     return
   }
-  return db
-    .collection(`user/${user.uid}/interview`)
-    .get()
-    .then(snapshot => {
-      const interviewId = snapshot.docs[snapshot.docs.length - 1].id
-      return { interviewId }
-    })
+  return InterviewRef.get().then(doc => {
+    if (doc.exists) {
+      return doc.data()
+    }
+    return
+  })
 }
 
 export const getAllInterviewId = () => {

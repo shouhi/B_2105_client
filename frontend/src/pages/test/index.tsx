@@ -6,26 +6,28 @@ import { useRouter } from 'next/router'
 import { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import Webcam from 'react-webcam'
 
-import { AuthContext, QuestionsContext } from '../../components/auth/AuthProvider'
+import {
+  AuthContext,
+  QuestionsContext,
+} from '../../components/auth/AuthProvider'
 import { Button } from '../../components/shared/Button'
 import { Layout } from '../../components/shared/Layout'
 import { Loading } from '../../components/shared/Loading'
 import { Modal } from '../../components/shared/Modal'
 import { QuestionType } from '../../types/types'
-import { initialInterview } from '../../utils/interview'
-import { addInterview } from '../api/firestore'
-
+import { getInterviewResult } from '../api/firestore'
 
 const Test: NextPage = () => {
   const webcamRef = useRef(null)
   const mediaRecorderRef = useRef(null)
   const [capturing, setCapturing] = useState(false)
   const [recordedChunks, setRecordedChunks] = useState([])
-  const [interviewQuestions, setInterviewQuestions] = useState<QuestionType[]>([])
+  const [interviewQuestions, setInterviewQuestions] = useState<QuestionType[]>(
+    []
+  )
   const [questionId, setQuestionId] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState<QuestionType>()
   const [interviewTime, setInterviewTime] = useState('00:00')
-  const [interviewId, setInterviewId] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
 
   const { query, push } = useRouter()
@@ -34,8 +36,8 @@ const Test: NextPage = () => {
   const getIdToken = currentUser?.getIdToken()
 
   useEffect(() => {
-    const videoList = Array.from(document.getElementsByTagName("video"));
-    videoList.forEach(video =>{
+    const videoList = Array.from(document.getElementsByTagName('video'))
+    videoList.forEach(video => {
       video.muted = true
     })
     if (query.id === 'practice') {
@@ -43,7 +45,9 @@ const Test: NextPage = () => {
       setInterviewQuestions([questions[randomNumber]])
       return
     }
-    const randomQuestions = questions.sort(() => 0.5 - Math.random()).slice(0, 3)
+    const randomQuestions = questions
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3)
     setInterviewQuestions(randomQuestions)
   }, [questions])
 
@@ -61,7 +65,9 @@ const Test: NextPage = () => {
       const time = Date.now() - startTime
       const seconds = Math.floor(time / 1000)
       const minutes = Math.floor(seconds / 60)
-      const setTime = `${String(minutes).padStart(2, '0')}:${String(seconds - minutes * 60).padStart(2, '0')}`
+      const setTime = `${String(minutes).padStart(2, '0')}:${String(
+        seconds - minutes * 60
+      ).padStart(2, '0')}`
       setInterviewTime(setTime)
     }, 1000)
     return () => clearInterval(interval)
@@ -69,8 +75,6 @@ const Test: NextPage = () => {
 
   const handleStartCaptureClick = useCallback(async () => {
     setCapturing(true)
-    const id = await addInterview(initialInterview)
-    setInterviewId(id)
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: 'video/webm',
     })
@@ -94,29 +98,32 @@ const Test: NextPage = () => {
       })
       // blob to file
       const file = new File([blob], 'video.mp4', {
-        type: 'video/mp4'
+        type: 'video/mp4',
       })
 
       const formData = new FormData()
-      formData.append('interview_id', interviewId)
       formData.append('file', file)
 
-      getIdToken.then((idToken) => {
+      getIdToken.then(idToken => {
         const axiosBase = axios.create({
-          baseURL: 'https://jphacks-server-ydpiyrw4ja-dt.a.run.app',
+          baseURL: 'https://jphacks-server-3gabclop4q-dt.a.run.app/',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`,
+            Authorization: `Bearer ${idToken}`,
             'X-Requested-With': 'XMLHttpRequest',
-          }
+          },
         })
-        axiosBase.post('/upload_movie', formData).then((res) => {
+        axiosBase.post('/create_interview', formData).then(async res => {
           if (res.status === 201) {
+            const result = await getInterviewResult(res.data['interview_id'])
             setModalOpen(true)
-            setTimeout(() => {
+            if (result !== null) {
               setModalOpen(false)
-              push('/result')
-            } , 5000)
+              push({
+                pathname: '/result',
+                query: { id: res.data['interview_id'] },
+              })
+            }
           }
         })
       })
@@ -165,13 +172,13 @@ const Test: NextPage = () => {
           {capturing ? (
             <div className="flex space-between">
               {questionId < interviewQuestions.length - 1 && (
-                  <Button
-                    variant="solid-blue"
-                    onClick={handleClickNextQuestion}
-                    className="px-4 h-10"
-                  >
-                    次の質問へ
-                  </Button>
+                <Button
+                  variant="solid-blue"
+                  onClick={handleClickNextQuestion}
+                  className="px-4 h-10"
+                >
+                  次の質問へ
+                </Button>
               )}
               <Button
                 variant="solid-red"

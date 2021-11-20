@@ -1,7 +1,7 @@
+// import { DocumentData } from 'firebase/firestore'
 import type { NextPage } from 'next'
-
 // import { useRouter } from 'next/router'
-// import { useContext } from 'react'
+// import { useCallback, useEffect, useState } from 'react'
 
 import {
   Radar,
@@ -15,34 +15,66 @@ import {
 import tailwindConfig from '../../../tailwind.config'
 import { Button } from '../../components/shared/Button'
 
-// import { AuthContext } from '../../components/auth/AuthProvider'
 import { Layout } from '../../components/shared/Layout'
-// import { getResultMeotions } from '../api/firestore'
-
-const result_emotions = [
-  { feel: 'anger', A: 0, B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
-  { feel: 'surprise', A: 0.6083136194660358, B: 0.5, fullMark: 1 },
-  { feel: 'disgust', A: 0.472974367823748, B: 0.5, fullMark: 1 },
-  { feel: 'sadness', A: 0.63518080432578575, B: 0.5, fullMark: 1 },
-  { feel: 'contempt', A: 0.2689760054072322, B: 0.5, fullMark: 1 },
-  { feel: 'fear', A: 0.4246487826268, B: 0.5, fullMark: 1 },
-  { feel: 'happiness', A: 0.908752957080095, B: 0.5, fullMark: 1 },
-]
-
-const result_impressions = [
-  { feel: 'anxious', A: -32.762314032014345, B: 0.5, fullMark: 100 }, //A = 自分   B = 平均
-  { feel: 'confidence', A: 0.6083136194660358, B: 0.5, fullMark: 100 },
-  { feel: 'honest', A: 35.90665310328858, B: 0.5, fullMark: 100 },
-  { feel: 'leadership', A: 33.35709336192617, B: 0.5, fullMark: 100 },
-  { feel: 'nervous', A: -26.578883152181138, B: 0.5, fullMark: 100 },
-  { feel: 'feaniceCoworkerr', A: 34.52420441911433, B: 0.5, fullMark: 100 },
-]
+// import { getAsString } from '../../utils/function'
+// import { getInterviewResult } from '../api/firestore'
 
 const Result: NextPage = () => {
-  // const { push } = useRouter()
+  // const [resultEmotions, setResultEmotionst] = useState<DocumentData>()
+  // const [resultImpressions, setResultImpressions] = useState<DocumentData>()
   const colors = tailwindConfig.theme.extend.colors
+  // const router = useRouter()
+  // const result_id = getAsString(router.query.id)
 
-  // const { currentUser } = useContext(AuthContext)
+  // const getResult = useCallback(async () => {
+  //   console.log(result_id)
+  //   const result = await getInterviewResult(result_id)
+  //   console.log(`undefined??${result}`)
+  //   if (result != undefined) {
+  //     console.log(result)
+  //     setResultEmotionst(result['result_emotions'])
+  //     setResultImpressions(result['result_impressions'])
+  //   } else {
+  //     return
+  //   }
+  // }, [setResultEmotionst, setResultImpressions])
+
+  // useEffect(() => {
+  //   getResult()
+  // }, [getResult])
+  // console.log(resultEmotions)
+  // console.log(resultImpressions)
+  // console.log(resultEmotions['anger'])
+
+  // const result_emotions = [
+  //   { feel: 'anger', A: resultEmotions['anger'], B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
+  //   { feel: 'surprise', A: resultEmotions['surprise'], B: 0.5, fullMark: 1 },
+  //   { feel: 'disgust', A: resultEmotions['disgust'], B: 0.5, fullMark: 1 },
+  //   { feel: 'sadness', A: resultEmotions['sadness'], B: 0.5, fullMark: 1 },
+  //   { feel: 'contempt', A: resultEmotions['contempt'], B: 0.5, fullMark: 1 },
+  //   { feel: 'fear', A: resultEmotions['fear'], B: 0.5, fullMark: 1 },
+  //   { feel: 'happiness', A: resultEmotions['happiness'], B: 0.5, fullMark: 1 },
+  // ]
+
+  const result_emotions = [
+    { feel: 'anger', A: 0, B: 0.5, fullMark: 1 }, //A = 自分   B = 平均
+    { feel: 'surprise', A: 0.6083136194660358, B: 0.5, fullMark: 1 },
+    { feel: 'disgust', A: 0.472974367823748, B: 0.5, fullMark: 1 },
+    { feel: 'sadness', A: 0.63518080432578575, B: 0.5, fullMark: 1 },
+    { feel: 'contempt', A: 0.2689760054072322, B: 0.5, fullMark: 1 },
+    { feel: 'fear', A: 0.4246487826268, B: 0.5, fullMark: 1 },
+    { feel: 'happiness', A: 0.908752957080095, B: 0.5, fullMark: 1 },
+  ]
+
+  const result_impressions = [
+    { feel: 'anxious', A: -32.762314032014345, B: 0.5, fullMark: 100 }, //A = 自分   B = 平均
+    { feel: 'confidence', A: 0.6083136194660358, B: 0.5, fullMark: 100 },
+    { feel: 'honest', A: 35.90665310328858, B: 0.5, fullMark: 100 },
+    { feel: 'leadership', A: 33.35709336192617, B: 0.5, fullMark: 100 },
+    { feel: 'nervous', A: -26.578883152181138, B: 0.5, fullMark: 100 },
+    { feel: 'feaniceCoworkerr', A: 34.52420441911433, B: 0.5, fullMark: 100 },
+  ]
+
   return (
     <Layout left="icon" right={['profile']}>
       <div className="p-5 grid grid-cols-4 gap-4 bg-result w-full">
@@ -66,7 +98,12 @@ const Result: NextPage = () => {
               <PolarRadiusAxis angle={50} domain={[0, 1]} />
               <defs>
                 <filter id="userData">
-                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.blue} />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="15"
+                    floodColor={colors.neon.blue}
+                  />
                 </filter>
               </defs>
               <Radar
@@ -79,7 +116,12 @@ const Result: NextPage = () => {
               />
               <defs>
                 <filter id="nationalData">
-                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.green} />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="15"
+                    floodColor={colors.neon.green}
+                  />
                 </filter>
               </defs>
               <Radar
@@ -87,7 +129,7 @@ const Result: NextPage = () => {
                 dataKey="B"
                 stroke={colors.neon.green}
                 fill={colors.neon.lightGreen}
-                filter='url(#nationalData)'
+                filter="url(#nationalData)"
                 fillOpacity={0.4}
               />
 
@@ -116,7 +158,12 @@ const Result: NextPage = () => {
               <PolarRadiusAxis angle={50} domain={[0, 1]} />
               <defs>
                 <filter id="userData">
-                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.blue} />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="15"
+                    floodColor={colors.neon.blue}
+                  />
                 </filter>
               </defs>
               <Radar
@@ -129,7 +176,12 @@ const Result: NextPage = () => {
               />
               <defs>
                 <filter id="nationalData">
-                  <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor={colors.neon.green} />
+                  <feDropShadow
+                    dx="0"
+                    dy="0"
+                    stdDeviation="15"
+                    floodColor={colors.neon.green}
+                  />
                 </filter>
               </defs>
               <Radar
@@ -137,7 +189,7 @@ const Result: NextPage = () => {
                 dataKey="B"
                 stroke={colors.neon.green}
                 fill={colors.neon.lightGreen}
-                filter='url(#nationalData)'
+                filter="url(#nationalData)"
                 fillOpacity={0.4}
               />
 
@@ -147,7 +199,11 @@ const Result: NextPage = () => {
           </div>
         </div>
         <div className="col-start-2 col-span-2 my-6">
-          <Button variant="solid-blue" linkProps={{href: '/dashboard'}} className="py-4">
+          <Button
+            variant="solid-blue"
+            linkProps={{ href: '/dashboard' }}
+            className="py-4"
+          >
             ホームへ戻る
           </Button>
         </div>
