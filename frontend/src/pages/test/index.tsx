@@ -119,7 +119,10 @@ const Test: NextPage = () => {
             setModalOpen(true)
             if (result !== null) {
               setModalOpen(false)
-              push('/result')
+              push({
+                pathname: '/result',
+                query: { id: res.data['interview_id'] },
+              })
             }
           }
         })

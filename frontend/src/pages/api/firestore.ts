@@ -46,7 +46,21 @@ export const signOut = () => {
   firebase.auth().signOut()
 }
 
-export const getInterviewResult = (id: string) => {
+export const getInterviewResult = id => {
+  const db = firebase.firestore()
+  const InterviewRef = db.collection('interview').doc(id)
+  if (!InterviewRef) {
+    return
+  }
+  return InterviewRef.get().then(doc => {
+    if (doc.exists) {
+      return doc.data()
+    }
+    return
+  })
+}
+
+export const getMyInterviewResult = id => {
   const db = firebase.firestore()
   const InterviewRef = db.collection('interview').doc(id)
   if (!InterviewRef) {
